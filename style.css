@@ -1,1 +1,694 @@
 
+/* =========================================
+   JOLYA CAFTAN — DESIGN SYSTEM
+   Palais oriental contemporain
+   Bordeaux • Crème • Or doux
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --wine: #541b2b;
+  --wine-dark: #32101b;
+  --wine-light: #783849;
+  --cream: #f8f3eb;
+  --paper: #fffdf9;
+  --gold: #b99a62;
+  --gold-light: #d7c39b;
+  --ink: #261d1c;
+  --muted: #82756d;
+  --line: rgba(84, 27, 43, 0.16);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', Arial, sans-serif;
+
+  --page-gutter: clamp(20px, 5vw, 84px);
+  --section-space: clamp(68px, 10vw, 144px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* RESET */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .3s ease, opacity .3s ease;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--cream);
+}
+
+/* TYPOGRAPHY */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+}
+
+h1 {
+  font-size: clamp(48px, 8vw, 112px);
+}
+
+h2 {
+  font-size: clamp(38px, 5.5vw, 72px);
+}
+
+h3 {
+  font-size: clamp(26px, 3vw, 38px);
+}
+
+p {
+  margin: 0 0 1.25em;
+}
+
+small,
+.caption,
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: .18em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+/* HEADER & NAVIGATION */
+
+header,
+.site-header,
+nav {
+  position: relative;
+  z-index: 10;
+}
+
+header,
+.site-header {
+  background: var(--paper);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  padding: 18px var(--page-gutter);
+  border-bottom: 1px solid var(--line);
+}
+
+nav a {
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+nav a:hover {
+  color: var(--gold);
+}
+
+.logo,
+.brand,
+header > a:first-child {
+  color: var(--wine);
+  font-family: var(--font-display);
+  font-size: clamp(25px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-align: center;
+}
+
+/* ANNOUNCEMENT STRIP / MARQUEE */
+
+.marquee,
+.announcement-bar {
+  overflow: hidden;
+  padding: 12px 20px;
+  background: var(--wine);
+  color: var(--cream);
+  text-align: center;
+}
+
+.marquee p,
+.announcement-bar p {
+  margin: 0;
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .92fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 96px);
+  min-height: min(760px, 84vh);
+  padding: 60px var(--page-gutter);
+  overflow: hidden;
+  background: var(--cream);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  padding: 36px 0;
+}
+
+.hero .eyebrow {
+  display: block;
+  margin-bottom: 28px;
+  color: var(--wine);
+}
+
+.hero h1 {
+  max-width: 700px;
+  color: var(--wine);
+}
+
+.hero h1 em,
+.hero h2 em {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.hero p {
+  max-width: 430px;
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hero-image {
+  position: relative;
+  min-height: 520px;
+  height: 100%;
+  background-color: #e7d8c8;
+  background-image:
+    linear-gradient(180deg, transparent 65%, rgba(50, 16, 27, .15)),
+    url('images/hero-caftan.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-image::after {
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(255, 253, 249, .65);
+  content: "";
+  pointer-events: none;
+}
+
+.hero a,
+.button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 14px 23px;
+  border: 1px solid var(--wine);
+  background: var(--wine);
+  color: var(--paper);
+  font-size: 10px;
+  letter-spacing: .13em;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    background .35s ease,
+    color .35s ease,
+    border-color .35s ease;
+}
+
+.hero a:hover,
+.button:hover,
+.btn:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--wine-dark);
+}
+
+/* SECTION HEADINGS */
+
+section {
+  scroll-margin-top: 80px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 42px;
+}
+
+.section-heading .eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--gold);
+}
+
+.section-heading h2 {
+  color: var(--wine);
+}
+
+.section-heading p {
+  max-width: 340px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* COLLECTION */
+
+.collection,
+.featured-collection,
+.products-section {
+  padding: var(--section-space) var(--page-gutter);
+}
+
+.products,
+.product-grid,
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.5vw, 36px);
+}
+
+.product-card,
+.product {
+  min-width: 0;
+}
+
+.product-image,
+.product-card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background-color: #eee4d8;
+  background-position: center;
+  background-size: cover;
+}
+
+.product-image::after,
+.product-card-image::after {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(84, 27, 43, .06);
+  content: "";
+  pointer-events: none;
+}
+
+.product-card img,
+.product img {
+  aspect-ratio: 3 / 4;
+  transition: transform .8s var(--ease);
+}
+
+.product-card:hover img,
+.product:hover img {
+  transform: scale(1.045);
+}
+
+.product-info {
+  padding: 16px 0 24px;
+}
+
+.product-info h3,
+.product-card h3,
+.product h3 {
+  margin-bottom: 5px;
+  color: var(--wine);
+  font-size: clamp(23px, 2.5vw, 31px);
+}
+
+.product-info p,
+.product-card p,
+.product p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.price {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.product-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--gold);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* BRAND STORY */
+
+.brand-story,
+.maison-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(32px, 8vw, 120px);
+  padding: var(--section-space) var(--page-gutter);
+  background: var(--cream);
+}
+
+.brand-story-image {
+  min-height: 480px;
+  background: #e5d7c7 url('images/maison-caftan.jpg') center / cover no-repeat;
+}
+
+.brand-story-content {
+  max-width: 520px;
+}
+
+.brand-story-content .eyebrow {
+  display: block;
+  margin-bottom: 22px;
+  color: var(--gold);
+}
+
+.brand-story-content h2 {
+  margin-bottom: 24px;
+  color: var(--wine);
+}
+
+.brand-story-content p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* CONTACT BANNER */
+
+.contact-banner {
+  padding: clamp(70px, 10vw, 130px) var(--page-gutter);
+  background: var(--wine);
+  color: var(--cream);
+  text-align: center;
+}
+
+.contact-banner .eyebrow {
+  display: block;
+  margin-bottom: 20px;
+  color: var(--gold-light);
+}
+
+.contact-banner h2 {
+  max-width: 800px;
+  margin: 0 auto 25px;
+}
+
+.contact-banner p {
+  max-width: 440px;
+  margin: 0 auto 30px;
+  color: rgba(255, 253, 249, .76);
+}
+
+.contact-banner a {
+  display: inline-block;
+  padding: 14px 24px;
+  border: 1px solid var(--gold-light);
+  color: var(--cream);
+  font-size: 10px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.contact-banner a:hover {
+  background: var(--gold-light);
+  color: var(--wine-dark);
+}
+
+/* FOOTER */
+
+footer,
+.site-footer {
+  padding: 45px var(--page-gutter) 25px;
+  background: var(--wine-dark);
+  color: var(--cream);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+footer a,
+.site-footer a {
+  color: var(--cream);
+}
+
+footer a:hover,
+.site-footer a:hover {
+  color: var(--gold-light);
+}
+
+footer p,
+.site-footer p {
+  color: rgba(255, 253, 249, .66);
+  font-size: 12px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 253, 249, .18);
+  font-size: 10px;
+}
+
+/* PRODUCT DETAIL / CART / FORMS */
+
+.product-detail,
+.cart,
+.contact-page {
+  padding: var(--section-space) var(--page-gutter);
+}
+
+.product-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 7vw, 100px);
+}
+
+.product-detail h1,
+.cart h1,
+.contact-page h1 {
+  margin-bottom: 24px;
+  color: var(--wine);
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ACCESSIBILITY & MOTION */
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* TABLETS */
+
+@media (max-width: 850px) {
+  .hero {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 24px;
+    min-height: 560px;
+  }
+
+  .hero-image {
+    min-height: 430px;
+  }
+
+  .products,
+  .product-grid,
+  .collection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand-story,
+  .maison-section {
+    gap: 32px;
+  }
+
+  .brand-story-image {
+    min-height: 400px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  nav {
+    gap: 12px 17px;
+    padding: 16px 18px;
+  }
+
+  nav a {
+    font-size: 9px;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    min-height: 0;
+    padding-top: 38px;
+    padding-bottom: 35px;
+  }
+
+  .hero-content {
+    padding: 10px 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(47px, 13vw, 72px);
+  }
+
+  .hero-image {
+    width: 100%;
+    min-height: 420px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .products,
+  .product-grid,
+  .collection-grid {
+    gap: 24px 12px;
+  }
+
+  .product-info {
+    padding-top: 12px;
+  }
+
+  .product-info h3,
+  .product-card h3,
+  .product h3 {
+    font-size: 23px;
+  }
+
+  .brand-story,
+  .maison-section,
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-story-image {
+    min-height: 400px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
