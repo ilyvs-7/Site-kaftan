@@ -686,6 +686,74 @@ button {
 
   .footer-inner {
     flex-direction: column;
+     
+/* CORRECTIONS POUR LE HTML ACTUEL */
+
+.announcement {
+  padding: 10px 16px;
+  background: #541b2b;
+  color: #f8f3eb;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.site-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding: 24px 5%;
+  background: #fffdf9;
+  border-bottom: 1px solid rgba(84, 27, 43, 0.16);
+}
+
+.site-header .logo {
+  color: #541b2b;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px;
+  letter-spacing: 0.12em;
+}
+
+.site-header .navigation {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.site-header .navigation a {
+  color: #32101b;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.site-header .navigation a:hover {
+  color: #b99a62;
+}
+
+.site-header .cart-link {
+  color: #541b2b;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 22px 18px;
+  }
+
+  .site-header .navigation {
+    justify-content: center;
+    gap: 14px;
+  }
+}
+
   }
 
   .footer-bottom {
