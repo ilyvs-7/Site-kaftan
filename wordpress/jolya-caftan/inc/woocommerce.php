@@ -41,6 +41,14 @@ function jolya_card_from_product( $product ) {
 		'price'    => $product->get_price_html(),
 		'url'      => $product->get_permalink(),
 		'image'    => $product->get_image_id() ? wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) : wc_placeholder_img_src( 'woocommerce_thumbnail' ),
+		// Avec srcset : le téléphone reçoit une photo plus petite que l'ordinateur.
+		'image_html' => $product->get_image_id() ? wp_get_attachment_image( $product->get_image_id(), 'woocommerce_thumbnail', false, array(
+			'class'    => 'card__img',
+			'loading'  => 'lazy',
+			'decoding' => 'async',
+			'alt'      => $product->get_name(),
+			'sizes'    => '(max-width: 1100px) 50vw, 25vw',
+		) ) : '',
 		'hover'    => $hover,
 		'sold_out' => ! $product->is_in_stock(),
 	);
@@ -121,6 +129,11 @@ add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+// Vignettes verticales (2:3) : sans cela WooCommerce recadre les photos en carré.
+add_filter( 'woocommerce_get_image_size_thumbnail', function () {
+	return array( 'width' => 720, 'height' => 1080, 'crop' => 1 );
+} );
 
 add_filter( 'loop_shop_columns', function () {
 	return 3;

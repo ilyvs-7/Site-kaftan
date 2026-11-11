@@ -14,7 +14,7 @@
     if (loaded) return;
     loaded = true;
     var hasPreloader = !!document.querySelector(".preloader");
-    var wait = hasPreloader && !reduced ? Math.max(0, 1500 - (Date.now() - started)) : 0;
+    var wait = hasPreloader && !reduced ? Math.max(0, 900 - (Date.now() - started)) : 0;
     setTimeout(function () {
       root.classList.add("is-loaded");
     }, wait);
@@ -169,6 +169,21 @@
   window.addEventListener("resize", onScroll);
   onScroll();
 
+  /* ---------- Photo au survol (souris uniquement) ---------- */
+
+  if (window.matchMedia("(hover: hover)").matches) {
+    document.querySelectorAll(".card__img--hover[data-src]").forEach(function (img) {
+      var media = img.closest(".card__media");
+      if (!media) return;
+      media.addEventListener("pointerenter", function () {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          delete img.dataset.src;
+        }
+      }, { once: true });
+    });
+  }
+
   /* ---------- Poussière d'or (fond animé) ---------- */
 
   var canvas = document.querySelector(".ambient__dust");
@@ -181,6 +196,16 @@
     var motes = [];
     var running = true;
 
+    // Le grain d'or est dessiné une seule fois, puis recopié : bien plus léger qu'un dégradé par image.
+    var sprite = document.createElement("canvas");
+    sprite.width = sprite.height = 32;
+    var sctx = sprite.getContext("2d");
+    var grad = sctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, "rgba(190,150,85,1)");
+    grad.addColorStop(1, "rgba(190,150,85,0)");
+    sctx.fillStyle = grad;
+    sctx.fillRect(0, 0, 32, 32);
+
     function resize() {
       width = window.innerWidth;
       height = window.innerHeight;
@@ -188,14 +213,14 @@
       canvas.height = height * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      var count = Math.round(Math.min(70, Math.max(22, width / 22)));
+      var count = Math.round(Math.min(46, Math.max(16, width / 30)));
       motes = [];
       for (var i = 0; i < count; i++) {
         motes.push({
           x: Math.random() * width,
           y: Math.random() * height,
           r: 0.6 + Math.random() * 1.9,
-          vy: 0.06 + Math.random() * 0.22,
+          vy: 0.12 + Math.random() * 0.44,
           sway: 0.2 + Math.random() * 0.6,
           phase: Math.random() * Math.PI * 2,
           twinkle: 0.4 + Math.random() * 1.2,
@@ -204,29 +229,30 @@
       }
     }
 
+    var lastFrame = 0;
+
     function draw(time) {
       if (!running) return;
+      requestAnimationFrame(draw);
+      // 30 images par seconde suffisent pour un mouvement aussi lent.
+      if (time - lastFrame < 32) return;
+      lastFrame = time;
+
       var t = time / 1000;
       ctx.clearRect(0, 0, width, height);
 
       for (var i = 0; i < motes.length; i++) {
         var m = motes[i];
         m.y -= m.vy;
-        var x = m.x + Math.sin(t * m.sway + m.phase) * 18;
         if (m.y < -10) {
           m.y = height + 10;
           m.x = Math.random() * width;
         }
-        var a = m.alpha * (0.55 + 0.45 * Math.sin(t * m.twinkle + m.phase));
-        var glow = ctx.createRadialGradient(x, m.y, 0, x, m.y, m.r * 4);
-        glow.addColorStop(0, "rgba(190,150,85," + a.toFixed(3) + ")");
-        glow.addColorStop(1, "rgba(190,150,85,0)");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(x, m.y, m.r * 4, 0, Math.PI * 2);
-        ctx.fill();
+        var x = m.x + Math.sin(t * m.sway + m.phase) * 18;
+        var size = m.r * 8;
+        ctx.globalAlpha = m.alpha * (0.55 + 0.45 * Math.sin(t * m.twinkle + m.phase));
+        ctx.drawImage(sprite, x - size / 2, m.y - size / 2, size, size);
       }
-      requestAnimationFrame(draw);
     }
 
     document.addEventListener("visibilitychange", function () {
