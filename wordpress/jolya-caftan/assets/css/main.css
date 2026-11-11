@@ -1987,3 +1987,757 @@ html:not(.js) .craft__item::before {
     opacity: 1;
   }
 }
+
+/* =====================================================
+   PAGES DU SITE ET BOUTIQUE (v1.2)
+   ===================================================== */
+
+/* ---------- En-tête de page ---------- */
+
+.page {
+  max-width: none;
+  padding: 0 0 clamp(80px, 10vw, 150px);
+}
+
+.page--plain {
+  max-width: 1180px;
+  padding: clamp(170px, 16vw, 230px) var(--gutter) clamp(80px, 10vw, 140px);
+}
+
+.page-hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(170px, 16vw, 240px) var(--gutter) clamp(50px, 7vw, 100px);
+}
+
+.page-hero--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: clamp(30px, 6vw, 110px);
+}
+
+.page-hero__lead {
+  max-width: 640px;
+  margin: clamp(22px, 3vw, 36px) 0 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: clamp(21px, 2.2vw, 31px);
+  line-height: 1.32;
+}
+
+.page-hero__media {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 440px);
+  aspect-ratio: 3 / 4.1;
+  overflow: hidden;
+  border-radius: 999px 999px 0 0;
+}
+
+.page-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(220, 195, 145, 0.6);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.page-hero__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.16;
+}
+
+/* ---------- Contenu rédigé ---------- */
+
+.prose {
+  max-width: calc(780px + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.prose--wide {
+  max-width: calc(1240px + 2 * var(--gutter));
+}
+
+.prose--rich {
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.prose--rich > *:first-child {
+  margin-top: 0;
+}
+
+.prose--rich h2 {
+  margin: 2.1em 0 0.55em;
+  padding-top: 0.9em;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.prose--rich h3 {
+  margin: 1.6em 0 0.4em;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(23px, 2.2vw, 30px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.prose--rich p {
+  margin: 0 0 1.2em;
+}
+
+.prose--rich a:not(.btn) {
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  transition: color 0.3s ease;
+}
+
+.prose--rich a:not(.btn):hover {
+  color: var(--gold);
+}
+
+.prose--rich ul.wp-block-list,
+.prose--rich > ul {
+  margin: 0 0 1.4em;
+  padding: 0;
+  list-style: none;
+}
+
+.prose--rich ul.wp-block-list li,
+.prose--rich > ul li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  border-bottom: 1px solid var(--line);
+}
+
+.prose--rich ul.wp-block-list li::before,
+.prose--rich > ul li::before {
+  content: "✦";
+  position: absolute;
+  top: 17px;
+  left: 2px;
+  color: var(--gold);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.prose--rich strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Tableau (guide des tailles) */
+
+.prose--rich .wp-block-table {
+  margin: 0 0 1.6em;
+  overflow-x: auto;
+}
+
+.prose--rich table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.prose--rich th,
+.prose--rich td {
+  padding: 16px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.prose--rich th {
+  border-bottom-color: var(--ink);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.prose--rich td:first-child {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 22px;
+}
+
+/* Colonnes « engagements » et « étapes » : plus larges que le texte */
+
+.prose--rich .wp-block-columns.jolya-values,
+.prose--rich .wp-block-columns.jolya-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 60px);
+  width: min(1240px, 100vw - 2 * var(--gutter));
+  margin: clamp(30px, 4vw, 50px) 0 clamp(40px, 6vw, 80px) 50%;
+  transform: translateX(-50%);
+}
+
+.prose--rich .jolya-values .wp-block-column,
+.prose--rich .jolya-steps .wp-block-column {
+  padding-top: 26px;
+  border-top: 1px solid var(--ink);
+}
+
+.prose--rich .jolya-values h3,
+.prose--rich .jolya-steps h3 {
+  margin-top: 0;
+  font-size: clamp(26px, 2.4vw, 34px);
+}
+
+.prose--rich .jolya-steps h3 {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.prose--rich .jolya-values p,
+.prose--rich .jolya-steps p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ---------- Volets dépliables (FAQ, fiche caftan) ---------- */
+
+.accordion,
+.prose--rich .wp-block-details {
+  border-bottom: 1px solid var(--line);
+}
+
+.accordions {
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+}
+
+.accordion > summary,
+.prose--rich .wp-block-details > summary {
+  position: relative;
+  display: block;
+  padding: 20px 44px 20px 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 24px);
+  line-height: 1.25;
+  list-style: none;
+  cursor: pointer;
+}
+
+.accordion > summary::-webkit-details-marker,
+.prose--rich .wp-block-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion > summary::before,
+.accordion > summary::after,
+.prose--rich .wp-block-details > summary::before,
+.prose--rich .wp-block-details > summary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  width: 15px;
+  height: 1px;
+  background: var(--gold);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.accordion > summary::after,
+.prose--rich .wp-block-details > summary::after {
+  transform: rotate(90deg);
+}
+
+.accordion[open] > summary::after,
+.prose--rich .wp-block-details[open] > summary::after {
+  transform: rotate(0deg);
+}
+
+.accordion__body,
+.prose--rich .wp-block-details > *:not(summary) {
+  padding: 0 44px 22px 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.accordion__body p {
+  margin: 0 0 0.8em;
+}
+
+.accordion__body p:last-child,
+.prose--rich .wp-block-details > p:last-child {
+  margin-bottom: 0;
+}
+
+.accordion__link {
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ---------- Formulaire de contact ---------- */
+
+.contact-block {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(36px, 7vw, 120px);
+  align-items: start;
+}
+
+.contact-block__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+.contact-block__list li {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.contact-block__list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-block__list span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.contact-block__list a {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 30px;
+}
+
+.form p {
+  margin: 0 0 26px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.form label small {
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="tel"],
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: border-color 0.3s ease;
+}
+
+.form textarea {
+  resize: vertical;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+  box-shadow: 0 1px 0 var(--gold);
+}
+
+.form ::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.form__field--check label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: var(--ink-soft);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.form__field--check input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--ink);
+}
+
+.form__trap {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__notice {
+  padding: 16px 20px;
+  border-left: 2px solid var(--gold);
+  background: rgba(251, 248, 242, 0.8);
+  color: var(--ink);
+}
+
+.form__notice--error {
+  border-left-color: #9a3b2c;
+}
+
+/* ---------- Bandeau de fin de page ---------- */
+
+.cta-band {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: clamp(90px, 11vw, 160px) var(--gutter);
+  background: #f3e9db;
+  text-align: center;
+}
+
+.cta-band__ornament {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.9;
+}
+
+.cta-band__inner {
+  position: relative;
+}
+
+.cta-band .section-title {
+  margin-bottom: 36px;
+  font-size: clamp(40px, 5vw, 76px);
+}
+
+.craft__link {
+  margin-top: 16px !important;
+}
+
+.craft__link a {
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Catalogue ---------- */
+
+.shop .page-title {
+  margin-bottom: 10px;
+}
+
+.shop--archive .term-description,
+.shop--archive .page-description {
+  max-width: 620px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.35;
+}
+
+.shop-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  float: left;
+  max-width: 100%;
+  margin: 26px 0 46px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.chip:hover {
+  border-color: var(--ink);
+}
+
+.chip.is-active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.woocommerce .shop .woocommerce-ordering {
+  margin: 26px 0 46px;
+}
+
+.woocommerce .shop .woocommerce-ordering select {
+  min-height: 42px;
+  padding: 0 34px 0 18px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* ---------- Fiche caftan : galerie en grille ---------- */
+
+.woocommerce div.product div.images .woocommerce-product-gallery__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.woocommerce div.product div.images .woocommerce-product-gallery__image,
+.woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n + 2) {
+  display: block;
+  width: auto;
+  margin: 0;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+.woocommerce div.product div.images .woocommerce-product-gallery__image:first-child,
+.woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(2):last-child {
+  grid-column: 1 / -1;
+}
+
+.woocommerce div.product div.images .woocommerce-product-gallery__image a {
+  display: block;
+}
+
+.woocommerce div.product div.images .woocommerce-product-gallery__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.woocommerce div.product .summary .woocommerce-product-details__short-description p {
+  margin: 0;
+}
+
+.woocommerce div.product .summary .product-assurances a {
+  border-bottom: 1px solid var(--gold);
+}
+
+.shop--single .related .card__text {
+  display: none;
+}
+
+/* ---------- Panier, commande, compte ---------- */
+
+.prose--wide .woocommerce,
+.prose--wide .wp-block-woocommerce-cart,
+.prose--wide .wp-block-woocommerce-checkout {
+  font-size: 15px;
+}
+
+.woocommerce-cart .cart-empty,
+.wc-block-cart__empty-cart__title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 40px);
+}
+
+.wc-block-components-totals-item__label,
+.wc-block-components-product-name {
+  color: var(--ink);
+}
+
+.wc-block-components-product-name {
+  font-family: var(--serif);
+  font-size: 20px;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation li {
+  border-bottom: 1px solid var(--line);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation a {
+  display: block;
+  padding: 14px 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation .is-active a {
+  color: var(--gold);
+}
+
+/* ---------- Ajustements boutique ---------- */
+
+/* WooCommerce réduit les titres des listes : on rétablit ceux du thème. */
+.woocommerce ul.products li.product .card__title,
+.woocommerce-page ul.products li.product .card__title {
+  padding: 0;
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.woocommerce ul.products li.product .card__price {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+@media (min-width: 1200px) {
+  .woocommerce ul.products,
+  .woocommerce-page ul.products {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Deux photos (face et dos) : côte à côte. */
+.woocommerce div.product div.images .woocommerce-product-gallery__image:first-child:nth-last-child(2),
+.woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(2):last-child {
+  grid-column: auto;
+}
+
+/* Formulaire dans une page de texte : il reprend toute la largeur. */
+.prose--rich:not(.prose--wide) .contact-block {
+  width: min(1240px, 100vw - 2 * var(--gutter));
+  margin: clamp(20px, 3vw, 40px) 0 0 50%;
+  transform: translateX(-50%);
+}
+
+/* ---------- Adaptations ---------- */
+
+@media (max-width: 900px) {
+  .page-hero--split,
+  .contact-block {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero__media {
+    justify-self: start;
+    width: min(100%, 340px);
+  }
+
+  .prose--rich .wp-block-columns.jolya-values,
+  .prose--rich .wp-block-columns.jolya-steps {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+
+  .prose--rich:not(.prose--wide) .contact-block {
+    width: 100%;
+    margin-left: 0;
+    transform: none;
+  }
+
+  /* Galerie : défilement horizontal au doigt */
+  .woocommerce div.product div.images .woocommerce-product-gallery__wrapper {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .woocommerce div.product div.images .woocommerce-product-gallery__wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .woocommerce div.product div.images .woocommerce-product-gallery__image,
+  .woocommerce div.product div.images .woocommerce-product-gallery__image:nth-child(n + 2) {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+
+  .woocommerce div.product div.images .woocommerce-product-gallery__image:only-child {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-filters {
+    flex-wrap: nowrap;
+    float: none;
+    margin: 20px calc(-1 * var(--gutter)) 16px;
+    padding: 0 var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .shop-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    flex-shrink: 0;
+  }
+
+  .woocommerce .shop .woocommerce-ordering {
+    float: none;
+    margin: 0 0 30px;
+  }
+
+  .woocommerce .shop .woocommerce-ordering select {
+    width: 100%;
+  }
+}

@@ -34,11 +34,21 @@ Tout se fait dans Safari, sur iPad.
 3. Renseigner le RIB dans Stripe/PayPal pour recevoir l'argent.
 4. Faire une commande test avant d'annoncer le site.
 
-### 5. Livraison et pages légales
-- **WooCommerce → Réglages → Expédition** : créer une zone « France » avec un tarif (ou gratuit).
-- Créer les pages **Mentions légales**, **CGV** et **Livraison & retours**
-  (Pages → Ajouter). Si leurs adresses se terminent par `mentions-legales`, `cgv` et
-  `livraison-retours`, elles s'affichent automatiquement en bas du site.
+### 5. Les pages du site
+À l'activation du thème, ces pages sont créées automatiquement (Pages → Toutes les pages) :
+**La maison**, **Sur mesure**, **Contact** (avec formulaire), **Guide des tailles**,
+**Livraison & retours**, **Questions fréquentes**.
+
+Leurs textes sont des propositions : relisez-les et adaptez-les (délais, conditions de retour,
+tailles) à la réalité de la boutique.
+
+Trois pages légales sont créées **en brouillon**, donc invisibles sur le site :
+**Mentions légales**, **Conditions générales de vente**, **Politique de confidentialité**.
+Complétez les passages **[À COMPLÉTER]**, faites-les relire, puis cliquez sur **Publier**.
+Elles apparaissent alors automatiquement en bas du site.
+
+### 6. Livraison
+**WooCommerce → Réglages → Expédition** : créer une zone « France » avec un tarif (ou gratuit).
 
 ---
 
@@ -69,7 +79,17 @@ passer la commande en « Terminée ».
 **Apparence → Personnaliser → JOLYA — Contenu du site**
 - *Accueil — grande image* : photos, titre, bandeau du haut
 - *La maison* : texte et photo
+- *Fiche caftan — informations* : textes « Tailles », « Livraison », « Entretien » affichés sur chaque caftan
 - *Contact* : e-mail, WhatsApp, Instagram
+
+### Modifier une page (La maison, Sur mesure, FAQ…)
+**Pages → Toutes les pages** → cliquer sur la page → modifier le texte directement → **Mettre à jour**.
+- La phrase sous le titre se règle dans le panneau de droite : **Extrait**.
+- La photo en haut de page : **Image mise en avant**.
+
+### Messages du formulaire de contact
+Ils arrivent par e-mail à l'adresse réglée dans *Personnaliser → Contact*. Pensez à vérifier
+le dossier « indésirables » lors des premiers messages.
 
 ### Entretien (5 minutes par mois)
 **Tableau de bord → Mises à jour** : tout mettre à jour. Activer les sauvegardes

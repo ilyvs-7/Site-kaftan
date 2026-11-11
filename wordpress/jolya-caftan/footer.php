@@ -17,14 +17,11 @@
 					<li><a href="<?php echo esc_url( wc_get_cart_url() ); ?>">Panier</a></li>
 					<li><a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>">Mon compte</a></li>
 				<?php endif; ?>
-				<?php if ( get_privacy_policy_url() ) : ?>
-					<li><a href="<?php echo esc_url( get_privacy_policy_url() ); ?>">Confidentialité</a></li>
-				<?php endif; ?>
 				<?php
-				foreach ( array( 'mentions-legales' => 'Mentions légales', 'cgv' => 'Conditions de vente', 'livraison-retours' => 'Livraison & retours' ) as $slug => $label ) {
+				foreach ( array( 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'cgv', 'mentions-legales', 'politique-de-confidentialite' ) as $slug ) {
 					$page = get_page_by_path( $slug );
 					if ( $page && 'publish' === $page->post_status ) {
-						printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $page ) ), esc_html( $label ) );
+						printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $page ) ), esc_html( get_the_title( $page ) ) );
 					}
 				}
 				?>

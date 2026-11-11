@@ -7,11 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.1.0' );
+define( 'JOLYA_VERSION', '1.2.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/woocommerce.php';
+require get_template_directory() . '/inc/pages.php';
+require get_template_directory() . '/inc/contact.php';
 
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'title-tag' );
@@ -21,11 +23,13 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'woocommerce', array(
 		'thumbnail_image_width' => 720,
 		'single_image_width'    => 1100,
-		'product_grid'          => array( 'default_columns' => 3, 'min_columns' => 2, 'max_columns' => 4 ),
+		'product_grid'          => array( 'default_columns' => 4, 'min_columns' => 2, 'max_columns' => 4 ),
 	) );
 	add_theme_support( 'wc-product-gallery-zoom' );
 	add_theme_support( 'wc-product-gallery-lightbox' );
-	add_theme_support( 'wc-product-gallery-slider' );
+
+	// L'extrait d'une page sert de phrase d'introduction sous son titre.
+	add_post_type_support( 'page', 'excerpt' );
 
 	register_nav_menus( array( 'primary' => 'Menu principal' ) );
 } );
@@ -79,10 +83,10 @@ function jolya_default_menu() {
 	$home = home_url( '/' );
 	$shop = function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ? wc_get_page_permalink( 'shop' ) : $home . '#collection';
 	$items = array(
-		'Collection'   => $shop,
-		'Savoir-faire' => $home . '#savoir-faire',
-		'La maison'    => $home . '#maison',
-		'Contact'      => $home . '#contact',
+		'Collection' => $shop,
+		'La maison'  => jolya_page_url( 'la-maison', $home . '#maison' ),
+		'Sur mesure' => jolya_page_url( 'sur-mesure', $home . '#savoir-faire' ),
+		'Contact'    => jolya_page_url( 'contact', $home . '#contact' ),
 	);
 	echo '<ul class="menu">';
 	foreach ( $items as $label => $url ) {

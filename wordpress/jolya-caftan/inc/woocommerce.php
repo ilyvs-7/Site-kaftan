@@ -136,26 +136,110 @@ add_filter( 'woocommerce_get_image_size_thumbnail', function () {
 } );
 
 add_filter( 'loop_shop_columns', function () {
-	return 3;
+	return 4;
 } );
 add_filter( 'loop_shop_per_page', function () {
 	return 12;
 } );
 add_filter( 'woocommerce_output_related_products_args', function ( $args ) {
-	$args['posts_per_page'] = 3;
-	$args['columns']        = 3;
+	$args['posts_per_page'] = 4;
+	$args['columns']        = 4;
 	return $args;
 } );
 
-// Les avis ne sont pas affichés par défaut sur une boutique de pièces uniques.
-add_filter( 'woocommerce_product_tabs', function ( $tabs ) {
-	unset( $tabs['additional_information'] );
-	return $tabs;
-}, 98 );
+// ---------- Catalogue ----------
 
-add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
+add_filter( 'woocommerce_page_title', function ( $title ) {
+	return function_exists( 'is_shop' ) && is_shop() && ! is_search() ? 'La collection' : $title;
+} );
+
+add_filter( 'woocommerce_breadcrumb_defaults', function ( $args ) {
+	$args['delimiter'] = ' <span aria-hidden="true">/</span> ';
+	$args['home']      = 'Accueil';
+	return $args;
+} );
+
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+
+/** Filtres par catégorie au-dessus de la grille. */
+function jolya_shop_filters() {
+	$terms = get_terms( array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'exclude'    => array( (int) get_option( 'default_product_cat' ) ),
+	) );
+	if ( is_wp_error( $terms ) || count( $terms ) < 2 ) {
+		return;
+	}
+	$current = is_product_category() ? get_queried_object_id() : 0;
+	echo '<nav class="shop-filters" aria-label="Catégories">';
+	printf( '<a class="chip%s" href="%s">Tout voir</a>', $current ? '' : ' is-active', esc_url( jolya_shop_url() ) );
+	foreach ( $terms as $term ) {
+		printf(
+			'<a class="chip%s" href="%s">%s</a>',
+			$current === (int) $term->term_id ? ' is-active' : '',
+			esc_url( get_term_link( $term ) ),
+			esc_html( $term->name )
+		);
+	}
+	echo '</nav>';
+}
+add_action( 'woocommerce_before_shop_loop', 'jolya_shop_filters', 20 );
+
+// ---------- Fiche caftan ----------
+
+// Les onglets WooCommerce sont remplacés par des volets dépliables dans la colonne de droite.
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+
+/** Volets : description, tailles, livraison, entretien. */
+function jolya_product_accordions( $description = null ) {
+	if ( null === $description ) {
+		$description = apply_filters( 'the_content', get_post_field( 'post_content', get_the_ID() ) );
+	}
+	$panels = array(
+		'Description'          => $description,
+		'Tailles & sur-mesure' => wpautop( esc_html( jolya_opt( 'product_sizes' ) ) ),
+		'Livraison & retours'  => wpautop( esc_html( jolya_opt( 'product_shipping' ) ) ),
+		'Entretien'            => wpautop( esc_html( jolya_opt( 'product_care' ) ) ),
+	);
+	$links = array(
+		'Tailles & sur-mesure' => array( 'guide-des-tailles', 'Voir le guide des tailles' ),
+		'Livraison & retours'  => array( 'livraison-retours', 'En savoir plus' ),
+	);
+
+	echo '<div class="accordions">';
+	$first = true;
+	foreach ( $panels as $title => $html ) {
+		if ( ! trim( wp_strip_all_tags( (string) $html ) ) ) {
+			continue;
+		}
+		$more = '';
+		if ( isset( $links[ $title ] ) ) {
+			$url = jolya_page_url( $links[ $title ][0] );
+			if ( $url ) {
+				$more = sprintf( '<p><a class="accordion__link" href="%s">%s</a></p>', esc_url( $url ), esc_html( $links[ $title ][1] ) );
+			}
+		}
+		printf(
+			'<details class="accordion"%s><summary>%s</summary><div class="accordion__body">%s%s</div></details>',
+			$first ? ' open' : '',
+			esc_html( $title ),
+			wp_kses_post( $html ),
+			$more // phpcs:ignore
+		);
+		$first = false;
+	}
+	echo '</div>';
+}
+add_action( 'woocommerce_single_product_summary', 'jolya_product_accordions', 45 );
+
+add_filter( 'woocommerce_product_related_products_heading', function () {
+	return 'Vous aimerez aussi';
+} );
 
 // Message de réassurance sous le bouton d'achat.
-add_action( 'woocommerce_single_product_summary', function () {
-	echo '<ul class="product-assurances"><li>Broderies réalisées à la main</li><li>Retouches et sur-mesure sur demande</li><li>Paiement sécurisé</li></ul>';
-}, 35 );
+function jolya_product_assurances() {
+	$custom = jolya_page_url( 'sur-mesure' );
+	echo '<ul class="product-assurances"><li>Broderies réalisées à la main</li><li>Paiement sécurisé</li><li>' . ( $custom ? '<a href="' . esc_url( $custom ) . '">Retouches et sur-mesure sur demande</a>' : 'Retouches et sur-mesure sur demande' ) . '</li></ul>';
+}
+add_action( 'woocommerce_single_product_summary', 'jolya_product_assurances', 35 );

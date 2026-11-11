@@ -23,6 +23,9 @@ function jolya_defaults() {
 		'whatsapp'      => '',
 		'instagram'     => '',
 		'announcement'  => 'Livraison offerte en France · Confection sur mesure sur demande',
+		'product_sizes'    => "Le caftan se porte ample et se ceinture à la taille. Consultez le guide des tailles ; en cas d'hésitation, écrivez-nous. Longueur et manches peuvent être ajustées sur demande.",
+		'product_shipping' => "Expédition soignée avec numéro de suivi. Vous disposez de 14 jours après réception pour changer d'avis (hors créations sur mesure).",
+		'product_care'     => "Nettoyage à sec recommandé. Repassage sur l'envers, à basse température, en évitant les broderies. Conserver suspendu, dans une housse.",
 	);
 }
 
@@ -45,6 +48,11 @@ add_action( 'customize_register', function ( $wp_customize ) {
 			'story_title'   => array( 'Titre — ligne 1', 'text' ),
 			'story_title_2' => array( 'Titre — ligne 2 (italique)', 'text' ),
 			'story_text'    => array( 'Texte', 'textarea' ),
+		) ),
+		'jolya_product' => array( 'Fiche caftan — informations', array(
+			'product_sizes'    => array( 'Tailles et sur-mesure', 'textarea' ),
+			'product_shipping' => array( 'Livraison et retours', 'textarea' ),
+			'product_care'     => array( 'Entretien', 'textarea' ),
 		) ),
 		'jolya_contact' => array( 'Contact', array(
 			'contact_title' => array( 'Titre', 'text' ),

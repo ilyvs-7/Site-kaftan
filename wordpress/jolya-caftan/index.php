@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-<div class="page">
+<div class="page page--plain">
 	<?php if ( have_posts() ) : ?>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<article <?php post_class( 'page__article' ); ?>>

@@ -114,6 +114,9 @@ $shop_url = jolya_shop_url();
 			<span class="craft__num">03</span>
 			<h3>Sur mesure</h3>
 			<p>Longueur, manches, ceinture : chaque pièce peut être ajustée à vos mesures et à votre occasion.</p>
+			<?php if ( jolya_page_url( 'sur-mesure' ) ) : ?>
+				<p class="craft__link"><a href="<?php echo esc_url( jolya_page_url( 'sur-mesure' ) ); ?>">Le sur-mesure <span aria-hidden="true">↗</span></a></p>
+			<?php endif; ?>
 		</article>
 	</div>
 </section>
@@ -128,7 +131,7 @@ $shop_url = jolya_shop_url();
 		<h2 class="section-title" data-reveal><?php echo esc_html( jolya_opt( 'story_title' ) ); ?><br><em><?php echo esc_html( jolya_opt( 'story_title_2' ) ); ?></em></h2>
 		<p class="story__text" data-reveal><?php echo esc_html( jolya_opt( 'story_text' ) ); ?></p>
 		<div data-reveal>
-			<a class="btn btn--line" href="#contact"><span>Nous rencontrer</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+			<a class="btn btn--line" href="<?php echo esc_url( jolya_page_url( 'la-maison', '#contact' ) ); ?>"><span>Découvrir la maison</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
 		</div>
 	</div>
 </section>
