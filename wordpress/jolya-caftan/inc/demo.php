@@ -10,28 +10,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function jolya_demo_products() {
 	return array(
-		array( 'name' => 'Caftan Nuit Royale', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'nuit-face.jpg' ),
+		array( 'name' => 'Caftan Nuit Royale', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'nuit-face.webp' ),
 			'short' => "Velours bleu nuit et broderies d'or.",
 			'desc'  => "Un velours bleu nuit profond, entièrement rehaussé de broderies dorées réalisées à la main. Ceinture ouvragée assortie. Une pièce de cérémonie au tombé majestueux." ),
-		array( 'name' => 'Caftan Majorelle', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'majorelle-face.jpg' ),
+		array( 'name' => 'Caftan Majorelle', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'majorelle-face.webp' ),
 			'short' => 'Bleu Majorelle, motifs floraux dorés.',
 			'desc'  => "Inspiré des jardins de Marrakech, ce caftan bleu Majorelle se pare de motifs floraux et de perles dorées. Traîne légère et ceinture bijou." ),
-		array( 'name' => 'Caftan Lilas', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'lilas-face.jpg', 'lilas-dos.jpg' ),
+		array( 'name' => 'Caftan Lilas', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'lilas-face.webp', 'lilas-dos.webp' ),
 			'short' => 'Crêpe lilas, broderies ton sur ton.',
 			'desc'  => "Une silhouette épurée en crêpe lilas, soulignée de broderies ton sur ton et d'une ceinture en satin prune nouée au dos. L'élégance en toute délicatesse." ),
-		array( 'name' => 'Caftan Grenat', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'grenat-face.jpg' ),
+		array( 'name' => 'Caftan Grenat', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'grenat-face.webp' ),
 			'short' => "Rouge grenat et arabesques d'or.",
 			'desc'  => "Un rouge grenat éclatant, couvert d'arabesques dorées brodées main. La pièce des grandes célébrations, pensée pour la mariée et ses invitées d'honneur." ),
-		array( 'name' => 'Caftan Émeraude', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'emeraude-face.jpg', 'emeraude-dos.jpg' ),
+		array( 'name' => 'Caftan Émeraude', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'emeraude-face.webp', 'emeraude-dos.webp' ),
 			'short' => 'Vert émeraude, perlage noir scintillant.',
 			'desc'  => "Un vert émeraude intense, travaillé d'un perlage noir scintillant sur le devant, le dos et les manches. Ceinture dorée ajourée." ),
-		array( 'name' => 'Caftan Safran', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'safran-face.jpg', 'safran-dos.jpg' ),
+		array( 'name' => 'Caftan Safran', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'safran-face.webp', 'safran-dos.webp' ),
 			'short' => 'Orange safran, broderies dorées et pierres.',
 			'desc'  => "La chaleur du safran, sublimée de broderies dorées en relief et de pierres vert profond. Un dos brodé spectaculaire." ),
-		array( 'name' => 'Caftan Jade', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'jade-face.jpg' ),
+		array( 'name' => 'Caftan Jade', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'jade-face.webp' ),
 			'short' => 'Vert jade et broderies argentées.',
 			'desc'  => "Vert jade et fils d'argent : des broderies baroques, des manches frangées et une ceinture métallisée pour une allure résolument raffinée." ),
-		array( 'name' => 'Caftan Fuchsia Impérial', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'fuchsia-face.jpg', 'hero-fuchsia.jpg' ),
+		array( 'name' => 'Caftan Fuchsia Impérial', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'fuchsia-face.webp', 'hero-fuchsia.webp' ),
 			'short' => 'Fuchsia profond, galons dorés.',
 			'desc'  => "La pièce emblématique de la maison : un fuchsia profond structuré de larges galons dorés aux motifs géométriques. Traîne et ceinture bijou." ),
 	);
@@ -48,7 +48,7 @@ function jolya_demo_cards() {
 			'price'    => number_format_i18n( $p['price'] ) . ' €',
 			'url'      => home_url( '/#contact' ),
 			'image'    => jolya_asset( $p['images'][0] ),
-			'hover'    => isset( $p['images'][1] ) && 'hero-fuchsia.jpg' !== $p['images'][1] ? jolya_asset( $p['images'][1] ) : '',
+			'hover'    => isset( $p['images'][1] ) && 'hero-fuchsia.webp' !== $p['images'][1] ? jolya_asset( $p['images'][1] ) : '',
 			'sold_out' => false,
 		);
 	}
@@ -67,7 +67,7 @@ function jolya_import_image( $file, $title ) {
 	}
 	require_once ABSPATH . 'wp-admin/includes/image.php';
 	$id = wp_insert_attachment( array(
-		'post_mime_type' => 'image/jpeg',
+		'post_mime_type' => 'image/webp',
 		'post_title'     => $title,
 		'post_status'    => 'inherit',
 	), $upload['file'] );

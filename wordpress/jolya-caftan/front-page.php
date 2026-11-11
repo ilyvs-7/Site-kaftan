@@ -13,8 +13,8 @@ $shop_url = jolya_shop_url();
 <section class="hero" id="accueil">
 	<div class="hero__media" data-parallax="0.18">
 		<picture>
-			<source media="(max-width: 760px)" srcset="<?php echo esc_url( jolya_image_opt( 'hero_image_mobile', 'fuchsia-face.jpg' ) ); ?>">
-			<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-fuchsia.jpg' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
+			<source media="(max-width: 760px)" srcset="<?php echo esc_url( jolya_image_opt( 'hero_image_mobile', 'fuchsia-face.webp' ) ); ?>">
+			<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-fuchsia.webp' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
 		</picture>
 	</div>
 	<div class="hero__veil"></div>
@@ -121,7 +121,7 @@ $shop_url = jolya_shop_url();
 <!-- LA MAISON -->
 <section class="story" id="maison">
 	<div class="story__media" data-reveal="arch">
-		<img src="<?php echo esc_url( jolya_image_opt( 'story_image', 'maison.jpg' ) ); ?>" alt="Architecture marocaine ciselée, inspiration de la maison JOLYA CAFTAN" loading="lazy" data-parallax="0.1">
+		<img src="<?php echo esc_url( jolya_image_opt( 'story_image', 'maison.webp' ) ); ?>" alt="Architecture marocaine ciselée, inspiration de la maison JOLYA CAFTAN" loading="lazy" data-parallax="0.1">
 	</div>
 	<div class="story__content">
 		<p class="eyebrow" data-reveal>L'esprit JOLYA</p>
@@ -135,7 +135,7 @@ $shop_url = jolya_shop_url();
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-	<div class="contact__ornament" data-parallax="0.12" style="background-image: url('<?php echo esc_url( jolya_asset( 'ornement.jpg' ) ); ?>')"></div>
+	<div class="contact__ornament" data-parallax="0.12" style="background-image: url('<?php echo esc_url( jolya_asset( 'ornement.webp' ) ); ?>')"></div>
 	<div class="contact__inner">
 		<p class="eyebrow" data-reveal>Restons en contact</p>
 		<h2 class="section-title" data-reveal><?php echo esc_html( jolya_opt( 'contact_title' ) ); ?><br><em>Parlons-en.</em></h2>

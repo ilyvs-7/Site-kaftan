@@ -77,7 +77,7 @@ function jolya_featured_piece() {
 				'text'  => wp_strip_all_tags( $p->get_description() ? $p->get_description() : $p->get_short_description() ),
 				'price' => $p->get_price_html(),
 				'url'   => $p->get_permalink(),
-				'image' => $p->get_image_id() ? wp_get_attachment_image_url( $p->get_image_id(), 'large' ) : jolya_asset( 'nuit-face.jpg' ),
+				'image' => $p->get_image_id() ? wp_get_attachment_image_url( $p->get_image_id(), 'large' ) : jolya_asset( 'nuit-face.webp' ),
 			);
 		}
 	}
