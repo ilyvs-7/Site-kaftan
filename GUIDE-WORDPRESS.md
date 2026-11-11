@@ -18,7 +18,7 @@ Tout se fait dans Safari, sur iPad.
 3. Choisir `jolya-caftan.zip` → **Installer** → **Activer**.
 
 > Si un message indique que le fichier est trop lourd, demander au support de
-> l'hébergeur d'augmenter la « taille maximale d'envoi » (upload_max_filesize) à 16 Mo.
+> l'hébergeur d'augmenter la « taille maximale d'envoi » (upload_max_filesize) à 8 Mo. Le fichier pèse moins de 2 Mo.
 
 ### 3. Installer la boutique
 1. Un bandeau « Installer WooCommerce » apparaît en haut de l'administration : cliquer dessus,
