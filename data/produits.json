@@ -1,0 +1,31 @@
+{
+  "produits": [
+    {
+      "nom": "Caftan Signature",
+      "categorie": "Signature",
+      "description": "Élégance et caractère.",
+      "prix": 360,
+      "image": "images/caftan-signature.jpg",
+      "lien_paiement": "",
+      "disponible": true
+    },
+    {
+      "nom": "Caftan Élégance",
+      "categorie": "Intemporel",
+      "description": "Une allure délicate et distinguée.",
+      "prix": 360,
+      "image": "images/caftan-elegance.jpg",
+      "lien_paiement": "",
+      "disponible": true
+    },
+    {
+      "nom": "Caftan Cérémonie",
+      "categorie": "Cérémonie",
+      "description": "Pour les grandes occasions.",
+      "prix": 360,
+      "image": "images/caftan-ceremonie.jpg",
+      "lien_paiement": "",
+      "disponible": true
+    }
+  ]
+}

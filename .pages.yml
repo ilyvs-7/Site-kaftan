@@ -1,0 +1,60 @@
+# Configuration du backoffice (Pages CMS — https://app.pagescms.org)
+media:
+  input: images
+  output: /images
+
+content:
+  - name: produits
+    label: Collection (produits)
+    type: file
+    path: data/produits.json
+    format: json
+    fields:
+      - name: produits
+        label: Produits
+        type: object
+        list: true
+        fields:
+          - name: nom
+            label: Nom du caftan
+            type: string
+            required: true
+          - name: categorie
+            label: Catégorie (ex. Signature, Cérémonie)
+            type: string
+          - name: description
+            label: Description courte
+            type: text
+          - name: prix
+            label: Prix en euros
+            type: number
+            required: true
+          - name: image
+            label: Photo
+            type: image
+          - name: lien_paiement
+            label: Lien de paiement (Stripe, PayPal, SumUp…)
+            type: string
+          - name: disponible
+            label: Disponible à la vente
+            type: boolean
+            default: true
+
+  - name: site
+    label: Infos de contact
+    type: file
+    path: data/site.json
+    format: json
+    fields:
+      - name: email
+        label: Adresse e-mail de contact
+        type: string
+      - name: whatsapp
+        label: Numéro WhatsApp (format international, ex. 33612345678)
+        type: string
+      - name: instagram
+        label: Lien Instagram (https://instagram.com/...)
+        type: string
+      - name: texte_contact
+        label: Texte de la section Contact
+        type: text
