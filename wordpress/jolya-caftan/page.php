@@ -8,6 +8,7 @@ get_header();
 $jolya_hero_fallbacks = array(
 	'la-maison'  => 'maison.webp',
 	'sur-mesure' => 'majorelle-face.webp',
+	'location'   => 'safran-face.webp',
 );
 
 while ( have_posts() ) :

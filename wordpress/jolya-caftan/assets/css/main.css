@@ -3188,3 +3188,371 @@ main {
   opacity: 0.6;
   cursor: progress;
 }
+
+/* =====================================================
+   v1.5 — FORMULAIRE DE LOCATION EN TROIS ÉTAPES
+   ===================================================== */
+
+.prose--rich > .rent {
+  grid-column: 1 / -1;
+}
+
+.rent {
+  max-width: 1640px;
+}
+
+.rent__step > .form__field,
+.rent__send {
+  max-width: 1100px;
+}
+
+.rent__step {
+  padding: clamp(40px, 4vw, 70px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.rent__step:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.prose--rich .rent .rent__title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 clamp(26px, 2.6vw, 42px);
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(30px, 2.8vw, 50px);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.rent__num {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 1.35em;
+  height: 1.35em;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 0.62em;
+  line-height: 1;
+}
+
+/* Champs plus grands et libellés lisibles */
+.rent .form__field > label,
+.rent .rent__sizes legend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.rent input[type="text"],
+.rent input[type="email"],
+.rent input[type="tel"],
+.rent input[type="date"],
+.rent textarea {
+  padding: 14px 0;
+  font-size: 19px;
+}
+
+.rent .rent__grid .form__field {
+  margin: 0;
+}
+
+/* Étape 1 : choix du caftan en photo */
+.rent__caftans {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 28px);
+}
+
+.form .rent-card,
+.form .rent-advice,
+.form .chip-choice {
+  position: relative;
+  margin: 0;
+  color: var(--ink);
+  font-size: inherit;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.rent-card input,
+.rent-advice input,
+.chip-choice input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.rent-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+.rent-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out), filter 0.4s ease, opacity 0.4s ease;
+}
+
+.rent-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+}
+
+.rent-card__check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(27, 23, 20, 0.2);
+  border-radius: 50%;
+  background: rgba(251, 248, 242, 0.88);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.rent-card__check::after {
+  content: "";
+  width: 11px;
+  height: 6px;
+  margin-top: -3px;
+  border-bottom: 2px solid var(--paper);
+  border-left: 2px solid var(--paper);
+  transform: rotate(-45deg) scale(0);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.rent-card__name {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.4vw, 25px);
+  line-height: 1.15;
+}
+
+@media (hover: hover) {
+  .rent-card:hover .rent-card__media img {
+    transform: scale(1.04);
+  }
+}
+
+.rent-card input:checked + .rent-card__media::after {
+  border-color: var(--ink);
+}
+
+.rent-card input:checked + .rent-card__media .rent-card__check {
+  border-color: var(--ink);
+  background: var(--ink);
+}
+
+.rent-card input:checked + .rent-card__media .rent-card__check::after {
+  transform: rotate(-45deg) scale(1);
+}
+
+.rent-card input:focus-visible + .rent-card__media::after {
+  border-color: var(--gold);
+}
+
+/* Les autres caftans s'estompent quand un modèle est choisi. */
+.rent:has(input[name="caftan"]:checked) .rent-card input:not(:checked) + .rent-card__media img {
+  opacity: 0.55;
+  filter: saturate(0.6);
+}
+
+.rent-advice {
+  display: inline-flex;
+  margin-top: 26px;
+}
+
+.rent-advice span {
+  padding: 14px 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 15px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.rent-advice:hover span {
+  border-color: var(--ink);
+}
+
+.rent-advice input:checked + span {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.rent-advice input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Étape 2 : date et taille */
+.rent__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 28px clamp(28px, 3vw, 64px);
+  align-items: start;
+}
+
+.rent__grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 28px;
+}
+
+.rent__sizes {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip-choice span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  min-height: 66px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.chip-choice strong {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.chip-choice small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.chip-choice:hover span {
+  border-color: var(--ink);
+}
+
+.chip-choice input:checked + span {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chip-choice input:checked + span small {
+  color: var(--gold-light);
+}
+
+.chip-choice input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Envoi */
+.rent__send {
+  padding-top: clamp(32px, 3vw, 50px);
+  border-top: 1px solid var(--ink);
+}
+
+.form .rent__summary {
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(22px, 1.9vw, 32px);
+  line-height: 1.25;
+}
+
+.form .rent__summary.is-empty {
+  color: var(--muted);
+}
+
+.rent__button {
+  min-height: 60px;
+  padding: 0 42px;
+  font-size: 13px;
+}
+
+.form .rent__note {
+  max-width: 600px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .rent__grid,
+  .rent__grid--three {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Caftans : rangée qui défile au doigt */
+  .rent__caftans {
+    grid-template-columns: none;
+    grid-auto-columns: 44%;
+    grid-auto-flow: column;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+
+  .rent__caftans::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rent-card {
+    scroll-snap-align: start;
+  }
+
+  .chip-choice span {
+    min-width: 64px;
+    padding: 8px 12px;
+  }
+
+  .rent__button {
+    width: 100%;
+    justify-content: center;
+  }
+}

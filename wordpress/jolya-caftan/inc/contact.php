@@ -103,22 +103,6 @@ function jolya_sizes() {
 	return array( 'S (36 – 38)', 'M (40 – 42)', 'L (44 – 46)', 'XL (48 – 50)', 'Je ne sais pas' );
 }
 
-/** Noms des caftans proposés dans le formulaire de location. */
-function jolya_location_caftans() {
-	$names = array();
-	if ( jolya_has_shop() ) {
-		foreach ( wc_get_products( array( 'status' => 'publish', 'limit' => 100, 'orderby' => 'menu_order', 'order' => 'ASC' ) ) as $product ) {
-			$names[] = $product->get_name();
-		}
-	}
-	if ( ! $names ) {
-		foreach ( jolya_demo_products() as $product ) {
-			$names[] = $product['name'];
-		}
-	}
-	return $names;
-}
-
 /** Date AAAA-MM-JJ valide, sinon chaîne vide. */
 function jolya_clean_date( $value ) {
 	$value = sanitize_text_field( (string) $value );
@@ -248,101 +232,126 @@ add_shortcode( 'jolya_contact', function ( $atts ) {
 } );
 
 /* ---------------------------------------------------------------
- * Formulaire de demande de location
+ * Formulaire de demande de location : trois étapes, choix du caftan en photo
  * ------------------------------------------------------------- */
 
-add_shortcode( 'jolya_location', function () {
-	$wanted  = isset( $_GET['caftan'] ) ? sanitize_text_field( wp_unslash( $_GET['caftan'] ) ) : ''; // phpcs:ignore
-	$caftans = jolya_location_caftans();
-	if ( $wanted && ! in_array( $wanted, $caftans, true ) ) {
-		$wanted = '';
+/** Caftans proposés à la location : nom et photo. */
+function jolya_location_items() {
+	$items = array();
+	if ( jolya_has_shop() ) {
+		foreach ( wc_get_products( array( 'status' => 'publish', 'limit' => 100, 'orderby' => 'menu_order', 'order' => 'ASC' ) ) as $product ) {
+			$items[] = array(
+				'name'  => $product->get_name(),
+				'image' => $product->get_image_id() ? wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) : wc_placeholder_img_src( 'woocommerce_thumbnail' ),
+			);
+		}
 	}
-	$today = current_time( 'Y-m-d' );
-	$aside = '<li><span>Réservation</span>Nous conseillons de faire votre demande au moins trois semaines avant l\'événement.</li>';
+	if ( ! $items ) {
+		foreach ( jolya_demo_products() as $product ) {
+			$items[] = array( 'name' => $product['name'], 'image' => jolya_asset( $product['images'][0] ) );
+		}
+	}
+	return $items;
+}
+
+add_shortcode( 'jolya_location', function () {
+	$wanted = isset( $_GET['caftan'] ) ? sanitize_text_field( wp_unslash( $_GET['caftan'] ) ) : ''; // phpcs:ignore
+	$items  = jolya_location_items();
+	$advice = 'Je souhaite être conseillée';
+	$today  = current_time( 'Y-m-d' );
+	$sizes  = array(
+		'S (36 – 38)'    => array( 'S', '36 – 38' ),
+		'M (40 – 42)'    => array( 'M', '40 – 42' ),
+		'L (44 – 46)'    => array( 'L', '44 – 46' ),
+		'XL (48 – 50)'   => array( 'XL', '48 – 50' ),
+		'Je ne sais pas' => array( '?', 'Je ne sais pas' ),
+	);
 
 	ob_start();
 	?>
-	<div class="contact-block contact-block--location" id="formulaire">
-		<?php echo jolya_contact_aside( $aside ); // phpcs:ignore ?>
+	<form class="form rent" id="formulaire" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+		<?php echo jolya_form_notice() . jolya_form_hidden( 'location' ); // phpcs:ignore ?>
 
-		<form class="form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-			<?php echo jolya_form_notice() . jolya_form_hidden( 'location' ); // phpcs:ignore ?>
+		<section class="rent__step">
+			<h2 class="rent__title"><span class="rent__num">1</span>Choisissez votre caftan</h2>
+			<div class="rent__caftans">
+				<?php foreach ( $items as $i => $item ) : ?>
+					<label class="rent-card">
+						<input type="radio" name="caftan" value="<?php echo esc_attr( $item['name'] ); ?>" <?php checked( $wanted, $item['name'] ); ?> required>
+						<span class="rent-card__media">
+							<img src="<?php echo esc_url( $item['image'] ); ?>" alt="" loading="lazy" decoding="async" width="360" height="540">
+							<span class="rent-card__check" aria-hidden="true"></span>
+						</span>
+						<span class="rent-card__name"><?php echo esc_html( $item['name'] ); ?></span>
+					</label>
+				<?php endforeach; ?>
+			</div>
+			<label class="rent-advice">
+				<input type="radio" name="caftan" value="<?php echo esc_attr( $advice ); ?>" <?php checked( $wanted, $advice ); ?>>
+				<span>Je ne sais pas encore : <strong>conseillez-moi</strong></span>
+			</label>
+		</section>
 
-			<fieldset class="form__group">
-				<legend>Le caftan</legend>
-				<div class="form__row">
-					<p class="form__field">
-						<label for="jolya-caftan">Caftan souhaité</label>
-						<?php echo jolya_select( 'jolya-caftan', 'caftan', array_merge( $caftans, array( 'Je souhaite être conseillée' ) ), $wanted, 'Choisir un caftan…' ); // phpcs:ignore ?>
-					</p>
-					<p class="form__field">
-						<label for="jolya-taille">Taille habituelle</label>
-						<?php echo jolya_select( 'jolya-taille', 'taille', jolya_sizes(), '', 'Choisir…' ); // phpcs:ignore ?>
-					</p>
-				</div>
-			</fieldset>
-
-			<fieldset class="form__group">
-				<legend>L'événement</legend>
-				<div class="form__row">
-					<p class="form__field">
-						<label for="jolya-evenement">Type d'événement</label>
-						<?php echo jolya_select( 'jolya-evenement', 'evenement', jolya_event_types(), '', 'Choisir…' ); // phpcs:ignore ?>
-					</p>
-					<p class="form__field">
-						<label for="jolya-date">Date de l'événement</label>
-						<input id="jolya-date" type="date" name="date_evenement" required min="<?php echo esc_attr( $today ); ?>">
-					</p>
-				</div>
-				<div class="form__row">
-					<p class="form__field">
-						<label for="jolya-retrait">Retrait souhaité le <small>(facultatif)</small></label>
-						<input id="jolya-retrait" type="date" name="date_retrait" min="<?php echo esc_attr( $today ); ?>">
-					</p>
-					<p class="form__field">
-						<label for="jolya-retour">Retour prévu le <small>(facultatif)</small></label>
-						<input id="jolya-retour" type="date" name="date_retour" min="<?php echo esc_attr( $today ); ?>">
-					</p>
-				</div>
+		<section class="rent__step">
+			<h2 class="rent__title"><span class="rent__num">2</span>Votre événement</h2>
+			<div class="rent__grid">
 				<p class="form__field">
-					<label for="jolya-remise">Comment souhaitez-vous recevoir le caftan ?</label>
-					<?php echo jolya_select( 'jolya-remise', 'remise', array( 'Retrait sur place', 'Livraison', 'À définir ensemble' ) ); // phpcs:ignore ?>
+					<label for="jolya-date">Date de l'événement</label>
+					<input id="jolya-date" type="date" name="date_evenement" required min="<?php echo esc_attr( $today ); ?>">
 				</p>
-			</fieldset>
+				<fieldset class="form__field rent__sizes">
+					<legend>Votre taille</legend>
+					<div class="chips">
+						<?php foreach ( $sizes as $value => $label ) : ?>
+							<label class="chip-choice">
+								<input type="radio" name="taille" value="<?php echo esc_attr( $value ); ?>">
+								<span><strong><?php echo esc_html( $label[0] ); ?></strong><small><?php echo esc_html( $label[1] ); ?></small></span>
+							</label>
+						<?php endforeach; ?>
+					</div>
+				</fieldset>
+			</div>
+		</section>
 
-			<fieldset class="form__group">
-				<legend>Vos coordonnées</legend>
-				<div class="form__row">
-					<p class="form__field">
-						<label for="jolya-nom">Nom et prénom</label>
-						<input id="jolya-nom" type="text" name="nom" required autocomplete="name">
-					</p>
-					<p class="form__field">
-						<label for="jolya-tel">Téléphone</label>
-						<input id="jolya-tel" type="tel" name="telephone" required autocomplete="tel">
-					</p>
-				</div>
+		<section class="rent__step">
+			<h2 class="rent__title"><span class="rent__num">3</span>Vos coordonnées</h2>
+			<div class="rent__grid rent__grid--three">
+				<p class="form__field">
+					<label for="jolya-nom">Nom et prénom</label>
+					<input id="jolya-nom" type="text" name="nom" required autocomplete="name">
+				</p>
+				<p class="form__field">
+					<label for="jolya-tel">Téléphone</label>
+					<input id="jolya-tel" type="tel" name="telephone" required autocomplete="tel">
+				</p>
 				<p class="form__field">
 					<label for="jolya-email">E-mail</label>
 					<input id="jolya-email" type="email" name="email" required autocomplete="email">
 				</p>
-				<p class="form__field">
-					<label for="jolya-message">Précisions <small>(facultatif)</small></label>
-					<textarea id="jolya-message" name="message" rows="4" placeholder="Mesures, retouches souhaitées, questions…"></textarea>
-				</p>
-			</fieldset>
+			</div>
+			<p class="form__field">
+				<label for="jolya-message">Un message ? <small>(facultatif)</small></label>
+				<textarea id="jolya-message" name="message" rows="3" placeholder="Retouches, mesures, questions…"></textarea>
+			</p>
+		</section>
 
+		<div class="rent__send">
+			<p class="rent__summary" aria-live="polite" data-rent-summary>Choisissez un caftan et une date.</p>
 			<p class="form__field form__field--check">
-				<label><input type="checkbox" name="accord" value="1" required> J'accepte que mes informations soient utilisées pour traiter ma demande de location.</label>
+				<label><input type="checkbox" name="accord" value="1" required> J'accepte que mes informations soient utilisées pour traiter ma demande.</label>
 			</p>
-			<p>
-				<button class="btn btn--dark" type="submit"><span>Envoyer ma demande</span><span class="btn__arrow" aria-hidden="true">↗</span></button>
-			</p>
-		</form>
-	</div>
+			<button class="btn btn--dark rent__button" type="submit"><span>Envoyer ma demande</span><span class="btn__arrow" aria-hidden="true">↗</span></button>
+			<p class="rent__note">Rien n'est payé maintenant. Nous vérifions la disponibilité, puis nous vous confirmons le tarif, la caution et le retrait.</p>
+		</div>
+	</form>
 	<?php
 	return ob_get_clean();
 } );
+
+/** Ancien nom, toujours utilisé par le traitement des demandes. */
+function jolya_location_caftans() {
+	return wp_list_pluck( jolya_location_items(), 'name' );
+}
 
 /* ---------------------------------------------------------------
  * Traitement des deux formulaires

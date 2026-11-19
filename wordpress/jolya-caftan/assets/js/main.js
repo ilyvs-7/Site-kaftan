@@ -169,6 +169,43 @@
   window.addEventListener("resize", onScroll);
   onScroll();
 
+  /* ---------- Location : récapitulatif en direct ---------- */
+
+  document.querySelectorAll(".rent").forEach(function (form) {
+    var out = form.querySelector("[data-rent-summary]");
+    var date = form.querySelector('input[name="date_evenement"]');
+    if (!out) return;
+
+    function formatDate(value) {
+      var d = new Date(value + "T12:00:00");
+      if (isNaN(d.getTime())) return value;
+      return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    }
+
+    function update() {
+      var caftan = form.querySelector('input[name="caftan"]:checked');
+      var size = form.querySelector('input[name="taille"]:checked');
+      var parts = [];
+      if (caftan) parts.push(caftan.value === "Je souhaite être conseillée" ? "Conseil personnalisé" : caftan.value);
+      if (date && date.value) parts.push(formatDate(date.value));
+      if (size) parts.push(size.value === "Je ne sais pas" ? "Taille à définir" : "Taille " + size.value.split(" ")[0]);
+      out.textContent = parts.length ? "Votre demande : " + parts.join(" · ") : "Choisissez un caftan et une date.";
+      out.classList.toggle("is-empty", !parts.length);
+    }
+
+    form.addEventListener("change", update);
+    form.addEventListener("input", update);
+    update();
+
+    // Caftan déjà choisi depuis sa fiche : on le montre dans la rangée qui défile (téléphone).
+    var chosen = form.querySelector(".rent-card input:checked");
+    if (chosen) {
+      var card = chosen.closest(".rent-card");
+      var row = card.parentElement;
+      if (row.scrollWidth > row.clientWidth) row.scrollLeft = card.offsetLeft - row.offsetLeft;
+    }
+  });
+
   /* ---------- Formulaires : envoi sans quitter la page ---------- */
 
   document.querySelectorAll("form.form").forEach(function (form) {
