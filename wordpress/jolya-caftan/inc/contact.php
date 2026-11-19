@@ -431,6 +431,12 @@ function jolya_handle_contact() {
 		$ok = ( $saved && ! is_wp_error( $saved ) ) || $sent;
 	}
 
+	// Envoi depuis le site sans recharger la page : réponse courte au navigateur.
+	if ( ! empty( $post['ajax'] ) ) {
+		wp_send_json( array( 'ok' => (bool) $ok ) );
+	}
+
+	// Sans JavaScript : retour sur la page du formulaire avec un message.
 	wp_safe_redirect( add_query_arg( 'message', $ok ? 'envoye' : 'erreur', $back ) . '#formulaire' );
 	exit;
 }

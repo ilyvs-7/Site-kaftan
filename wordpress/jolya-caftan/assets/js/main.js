@@ -169,6 +169,62 @@
   window.addEventListener("resize", onScroll);
   onScroll();
 
+  /* ---------- Formulaires : envoi sans quitter la page ---------- */
+
+  document.querySelectorAll("form.form").forEach(function (form) {
+    if (!window.fetch || !window.FormData) return;
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var button = form.querySelector('button[type="submit"]');
+      var label = button ? button.querySelector("span") : null;
+      var initial = label ? label.textContent : "";
+      var old = form.querySelector(".form__notice");
+      if (old) old.remove();
+
+      if (button) {
+        button.disabled = true;
+        if (label) label.textContent = "Envoi en cours…";
+      }
+
+      var data = new FormData(form);
+      data.append("ajax", "1");
+
+      // getAttribute : form.action désignerait le champ caché nommé « action ».
+      fetch(form.getAttribute("action"), { method: "POST", body: data, credentials: "same-origin" })
+        .then(function (response) { return response.json(); })
+        .then(function (result) {
+          if (result && result.ok) {
+            var done = document.createElement("div");
+            done.className = "form__done";
+            done.setAttribute("role", "status");
+            done.setAttribute("tabindex", "-1");
+            done.innerHTML =
+              '<p class="eyebrow">Demande envoyée</p>' +
+              "<h3>Merci, nous avons bien reçu votre demande.</h3>" +
+              "<p>Nous revenons vers vous très vite, par e-mail ou par téléphone.</p>";
+            form.replaceWith(done);
+            done.focus({ preventScroll: true });
+            done.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+          } else {
+            throw new Error("refus");
+          }
+        })
+        .catch(function () {
+          var notice = document.createElement("p");
+          notice.className = "form__notice form__notice--error";
+          notice.setAttribute("role", "alert");
+          notice.textContent = "La demande n'a pas pu être envoyée. Vérifiez les champs obligatoires, ou écrivez-nous directement par e-mail.";
+          form.insertBefore(notice, form.firstChild);
+          if (button) {
+            button.disabled = false;
+            if (label) label.textContent = initial;
+          }
+        });
+    });
+  });
+
   /* ---------- Photo au survol (souris uniquement) ---------- */
 
   if (window.matchMedia("(hover: hover)").matches) {

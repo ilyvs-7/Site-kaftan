@@ -3161,3 +3161,30 @@ main {
   padding-top: 0;
   border-top: 0;
 }
+
+/* Confirmation affichée à la place du formulaire après l'envoi. */
+.form__done {
+  padding: clamp(30px, 4vw, 60px) 0;
+  border-top: 1px solid var(--ink);
+  outline: none;
+}
+
+.form__done h3 {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(30px, 3vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.form__done p:last-child {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.form button[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
