@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.2.0' );
+define( 'JOLYA_VERSION', '1.3.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
