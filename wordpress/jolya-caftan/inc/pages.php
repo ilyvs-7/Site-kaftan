@@ -106,6 +106,27 @@ function jolya_site_pages() {
 				jolya_b_shortcode( '[jolya_contact sujet="Sur mesure"]' ),
 		),
 
+		'location' => array(
+			'title'   => 'Location',
+			'lead'    => "Sublimez votre événement le temps d'une journée : nos caftans sont aussi proposés à la location, prêts à porter et soigneusement préparés.",
+			'content' =>
+				jolya_b_h( "Comment ça se passe" ) .
+				jolya_b_columns( array(
+					array( "1. La demande", "Choisissez votre caftan et indiquez la date de votre événement grâce au formulaire ci-dessous." ),
+					array( "2. La confirmation", "Nous vérifions la disponibilité du modèle et vous confirmons le tarif, la caution et les modalités de retrait." ),
+					array( "3. Le jour J", "Vous recevez votre caftan prêt à porter, puis vous nous le rendez après l'événement. Le nettoyage est pris en charge par la maison." ),
+				), 'jolya-steps' ) .
+				jolya_b_h( "Bon à savoir" ) .
+				jolya_b_list( array(
+					"<strong>Tarif et caution</strong> : ils dépendent du modèle et vous sont indiqués avec la confirmation de disponibilité.",
+					"<strong>Réservation</strong> : nous vous conseillons de faire votre demande au moins trois semaines avant l'événement.",
+					"<strong>Essayage et retouches</strong> : la longueur et les manches peuvent souvent être ajustées. Précisez-le dans votre demande.",
+					"<strong>Disponibilité</strong> : chaque modèle n'est loué qu'à une seule personne à la fois. Votre réservation est confirmée par écrit.",
+				) ) .
+				jolya_b_h( "Votre demande" ) .
+				jolya_b_shortcode( '[jolya_location]' ),
+		),
+
 		'contact' => array(
 			'title'   => 'Contact',
 			'lead'    => "Une question sur un modèle, une taille ou une commande ? Écrivez-nous, nous vous répondons personnellement.",
@@ -164,6 +185,7 @@ function jolya_site_pages() {
 				jolya_b_h( "Commande et paiement" ) .
 				jolya_b_details( "Quels moyens de paiement acceptez-vous ?", "Le paiement s'effectue en ligne par carte bancaire, sur une page sécurisée. Vos données bancaires ne nous sont jamais transmises." ) .
 				jolya_b_details( "Puis-je commander un caftan sur mesure ?", "Oui. Longueur, manches, couleur, broderies : rendez-vous sur la page Sur mesure pour nous présenter votre projet." ) .
+				jolya_b_details( "Puis-je louer un caftan ?", "Oui. Choisissez votre modèle et la date de votre événement sur la page Location : nous vous confirmons la disponibilité, le tarif et la caution." ) .
 				jolya_b_h( "Entretien" ) .
 				jolya_b_details( "Comment entretenir mon caftan ?", "Nous recommandons un nettoyage à sec chez un professionnel. Conservez votre caftan suspendu, dans une housse, à l'abri de la lumière et de l'humidité." ) .
 				jolya_b_details( "Comment le repasser ?", "Repassez sur l'envers, à basse température, en évitant les broderies et les perles. Un défroisseur vapeur, tenu à distance, convient très bien." ),
@@ -225,10 +247,25 @@ function jolya_site_pages() {
 	);
 }
 
-/** Crée les pages manquantes (ne touche jamais à une page existante). */
+/**
+ * Crée les pages du thème qui n'ont encore jamais été créées.
+ * Une page supprimée volontairement n'est pas recréée ; une page ajoutée
+ * dans une nouvelle version du thème (ex. Location) est créée automatiquement.
+ */
 function jolya_create_pages() {
+	$done = get_option( 'jolya_pages_created', null );
+	if ( null === $done ) {
+		// Sites installés avant cette version : les pages d'origine existent déjà.
+		$done = get_option( 'jolya_pages_done' ) ? array( 'la-maison', 'sur-mesure', 'contact', 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'mentions-legales', 'cgv', 'politique-de-confidentialite' ) : array();
+	}
+	$done    = (array) $done;
 	$created = 0;
+
 	foreach ( jolya_site_pages() as $slug => $page ) {
+		if ( in_array( $slug, $done, true ) ) {
+			continue;
+		}
+		$done[] = $slug;
 		if ( get_page_by_path( $slug ) ) {
 			continue;
 		}
@@ -244,13 +281,19 @@ function jolya_create_pages() {
 			$created++;
 		}
 	}
+
+	update_option( 'jolya_pages_created', $done );
 	update_option( 'jolya_pages_done', 1 );
 	return $created;
 }
 
-add_action( 'after_switch_theme', function () {
-	if ( ! get_option( 'jolya_pages_done' ) ) {
+add_action( 'after_switch_theme', 'jolya_create_pages' );
+
+// Après une mise à jour du thème, les nouvelles pages sont créées à la première visite de l'administration.
+add_action( 'admin_init', function () {
+	if ( get_option( 'jolya_pages_version' ) !== JOLYA_VERSION && current_user_can( 'edit_pages' ) ) {
 		jolya_create_pages();
+		update_option( 'jolya_pages_version', JOLYA_VERSION );
 	}
 } );
 

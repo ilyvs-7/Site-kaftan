@@ -2850,8 +2850,8 @@ main {
 }
 
 /* Chaque titre à gauche, son contenu à droite, sur une même ligne de séparation. */
-.prose--rich > h2,
-.prose--rich > h2 + * {
+.prose.prose--rich.prose--rich > h2,
+.prose.prose--rich.prose--rich > h2 + * {
   margin-top: clamp(56px, 6vw, 120px);
   padding-top: clamp(26px, 2.4vw, 44px);
   border-top: 1px solid var(--line);
@@ -2863,8 +2863,8 @@ main {
   font-size: clamp(32px, 3vw, 56px);
 }
 
-.prose--rich > h2:first-child,
-.prose--rich > h2:first-child + * {
+.prose.prose--rich.prose--rich > h2:first-child,
+.prose.prose--rich.prose--rich > h2:first-child + * {
   margin-top: 0;
 }
 
@@ -2999,11 +2999,15 @@ main {
     display: block;
   }
 
-  .prose--rich > h2 {
+  .prose.prose--rich.prose--rich > h2 {
     margin-top: clamp(48px, 10vw, 80px);
   }
 
-  .prose--rich > h2 + * {
+  .prose.prose--rich.prose--rich > h2:first-child {
+    margin-top: 0;
+  }
+
+  .prose.prose--rich.prose--rich > h2 + * {
     margin-top: 0;
     padding-top: 0;
     border-top: 0;
@@ -3066,4 +3070,94 @@ main {
 .site-footer__top,
 .site-footer__bottom {
   max-width: calc(var(--max) - 2 * var(--gutter));
+}
+
+/* =====================================================
+   v1.4 — LOCATION
+   ===================================================== */
+
+.form input[type="date"] {
+  display: block;
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.form input[type="date"]:focus {
+  outline: none;
+  border-bottom-color: var(--gold);
+  box-shadow: 0 1px 0 var(--gold);
+}
+
+.form input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.form__group {
+  margin: 0 0 clamp(26px, 3vw, 44px);
+  padding: 0;
+  border: 0;
+}
+
+.form__group legend {
+  width: 100%;
+  margin-bottom: 22px;
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(22px, 1.7vw, 30px);
+  line-height: 1.2;
+}
+
+.product-rent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin: -12px 0 30px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.product-rent .btn {
+  flex: 1 1 220px;
+  justify-content: center;
+}
+
+.feature__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 30px;
+}
+
+.feature__link {
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(220, 195, 145, 0.5);
+  color: var(--gold-light);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 0.3s ease;
+}
+
+.feature__link:hover {
+  border-bottom-color: var(--gold-light);
+}
+
+/* Formulaire placé juste sous son titre, sans double ligne. */
+.prose.prose--rich.prose--rich > h2 + .contact-block {
+  margin-top: clamp(28px, 2.6vw, 48px);
+  padding-top: 0;
+  border-top: 0;
 }

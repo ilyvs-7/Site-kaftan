@@ -36,7 +36,7 @@ Tout se fait dans Safari, sur iPad.
 
 ### 5. Les pages du site
 À l'activation du thème, ces pages sont créées automatiquement (Pages → Toutes les pages) :
-**La maison**, **Sur mesure**, **Contact** (avec formulaire), **Guide des tailles**,
+**La maison**, **Location** (avec formulaire de demande), **Sur mesure**, **Contact** (avec formulaire), **Guide des tailles**,
 **Livraison & retours**, **Questions fréquentes**.
 
 Leurs textes sont des propositions : relisez-les et adaptez-les (délais, conditions de retour,
@@ -87,9 +87,18 @@ passer la commande en « Terminée ».
 - La phrase sous le titre se règle dans le panneau de droite : **Extrait**.
 - La photo en haut de page : **Image mise en avant**.
 
-### Messages du formulaire de contact
-Ils arrivent par e-mail à l'adresse réglée dans *Personnaliser → Contact*. Pensez à vérifier
-le dossier « indésirables » lors des premiers messages.
+### Demandes de location et messages de contact
+Chaque demande envoyée depuis le site (location ou contact) :
+- arrive **par e-mail** à l'adresse réglée dans *Personnaliser → Contact* (vérifier le dossier
+  « indésirables » lors des premiers messages) ;
+- est **enregistrée dans l'administration**, menu **Demandes** (à gauche). Une pastille indique
+  le nombre de nouvelles demandes ; une demande ouverte n'est plus comptée comme nouvelle.
+
+Pour une demande de location : vérifier la disponibilité du caftan à la date indiquée, puis
+répondre à la cliente avec le tarif, la caution et les modalités de retrait.
+
+Sur chaque fiche caftan, le bouton **Demander la location** ouvre le formulaire avec ce caftan
+déjà sélectionné.
 
 ### Entretien (5 minutes par mois)
 **Tableau de bord → Mises à jour** : tout mettre à jour. Activer les sauvegardes

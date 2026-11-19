@@ -243,3 +243,17 @@ function jolya_product_assurances() {
 	echo '<ul class="product-assurances"><li>Broderies réalisées à la main</li><li>Paiement sécurisé</li><li>' . ( $custom ? '<a href="' . esc_url( $custom ) . '">Retouches et sur-mesure sur demande</a>' : 'Retouches et sur-mesure sur demande' ) . '</li></ul>';
 }
 add_action( 'woocommerce_single_product_summary', 'jolya_product_assurances', 35 );
+
+/** Lien « Demander la location » sous le bouton d'achat, avec le caftan présélectionné. */
+function jolya_product_rent_link() {
+	$url = jolya_page_url( 'location' );
+	if ( ! $url ) {
+		return;
+	}
+	$url = add_query_arg( 'caftan', rawurlencode( get_the_title() ), $url ) . '#formulaire';
+	printf(
+		'<p class="product-rent"><a class="btn btn--line" href="%s"><span>Demander la location</span><span class="btn__arrow" aria-hidden="true">↗</span></a><span>Pour un mariage, des fiançailles ou une soirée.</span></p>',
+		esc_url( $url )
+	);
+}
+add_action( 'woocommerce_single_product_summary', 'jolya_product_rent_link', 31 );

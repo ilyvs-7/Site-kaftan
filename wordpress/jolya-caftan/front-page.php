@@ -84,8 +84,11 @@ $shop_url = jolya_shop_url();
 		<h2 class="section-title" data-reveal><?php echo esc_html( $featured['name'] ); ?></h2>
 		<p class="feature__text" data-reveal><?php echo esc_html( wp_trim_words( $featured['text'], 45 ) ); ?></p>
 		<p class="feature__price" data-reveal><?php echo wp_kses_post( $featured['price'] ); ?></p>
-		<div data-reveal>
+		<div class="feature__actions" data-reveal>
 			<a class="btn btn--gold" href="<?php echo esc_url( $featured['url'] ); ?>"><span>Découvrir cette pièce</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+			<?php if ( jolya_page_url( 'location' ) ) : ?>
+				<a class="feature__link" href="<?php echo esc_url( jolya_page_url( 'location' ) ); ?>">Aussi disponible à la location <span aria-hidden="true">↗</span></a>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

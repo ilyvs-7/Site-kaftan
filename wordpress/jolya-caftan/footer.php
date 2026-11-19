@@ -18,7 +18,7 @@
 					<li><a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>">Mon compte</a></li>
 				<?php endif; ?>
 				<?php
-				foreach ( array( 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'cgv', 'mentions-legales', 'politique-de-confidentialite' ) as $slug ) {
+				foreach ( array( 'location', 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'cgv', 'mentions-legales', 'politique-de-confidentialite' ) as $slug ) {
 					$page = get_page_by_path( $slug );
 					if ( $page && 'publish' === $page->post_status ) {
 						printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $page ) ), esc_html( get_the_title( $page ) ) );

@@ -46,7 +46,7 @@ while ( have_posts() ) :
 		</div>
 	</article>
 
-	<?php if ( ! $jolya_is_shop && 'contact' !== $jolya_slug && 'sur-mesure' !== $jolya_slug ) : ?>
+	<?php if ( ! $jolya_is_shop && 'contact' !== $jolya_slug && 'sur-mesure' !== $jolya_slug && 'location' !== $jolya_slug ) : ?>
 		<section class="cta-band">
 			<div class="cta-band__ornament" style="background-image: url('<?php echo esc_url( jolya_asset( 'ornement.webp' ) ); ?>')"></div>
 			<div class="cta-band__inner">

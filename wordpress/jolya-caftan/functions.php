@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.3.0' );
+define( 'JOLYA_VERSION', '1.4.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -84,6 +84,7 @@ function jolya_default_menu() {
 	$shop = function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ? wc_get_page_permalink( 'shop' ) : $home . '#collection';
 	$items = array(
 		'Collection' => $shop,
+		'Location'   => jolya_page_url( 'location', $home . '#contact' ),
 		'La maison'  => jolya_page_url( 'la-maison', $home . '#maison' ),
 		'Sur mesure' => jolya_page_url( 'sur-mesure', $home . '#savoir-faire' ),
 		'Contact'    => jolya_page_url( 'contact', $home . '#contact' ),
