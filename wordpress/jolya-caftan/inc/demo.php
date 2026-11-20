@@ -76,8 +76,122 @@ function jolya_import_image( $file, $title ) {
 	}
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
 	update_post_meta( $id, '_wp_attachment_image_alt', $title );
+	update_post_meta( $id, '_jolya_asset', $file );
+	update_post_meta( $id, '_jolya_asset_hash', md5_file( $upload['file'] ) );
 	return $id;
 }
+
+/* ---------------------------------------------------------------
+ * Mise à jour des photos importées quand le thème en fournit de meilleures.
+ * Seules les photos créées par l'import du thème, et jamais retouchées dans
+ * WordPress, sont remplacées. Les photos ajoutées par la cliente ne sont pas touchées.
+ * ------------------------------------------------------------- */
+
+/** Photos importées par le thème, avec le fichier du thème correspondant. */
+function jolya_imported_photos() {
+	$found = array();
+	$ids   = get_posts( array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'inherit',
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'meta_query'     => array( array( 'key' => '_wp_attached_file', 'value' => 'jolya-', 'compare' => 'LIKE' ) ),
+	) );
+	foreach ( $ids as $id ) {
+		$path  = get_attached_file( $id );
+		$asset = get_post_meta( $id, '_jolya_asset', true );
+		if ( ! $asset && $path && preg_match( '/^jolya-([a-z-]+?)(?:-\d+)?\.webp$/', wp_basename( $path ), $m ) ) {
+			$asset = $m[1] . '.webp';
+		}
+		$source = get_template_directory() . '/assets/images/' . $asset;
+		if ( $asset && $path && file_exists( $path ) && file_exists( $source ) ) {
+			$found[ $id ] = array( 'path' => $path, 'source' => $source );
+		}
+	}
+	return $found;
+}
+
+/** Photos importées dont le thème fournit une version plus récente. */
+function jolya_photos_to_update() {
+	$todo = array();
+	foreach ( jolya_imported_photos() as $id => $photo ) {
+		$current = md5_file( $photo['path'] );
+		$known   = get_post_meta( $id, '_jolya_asset_hash', true );
+		// Fichier modifié depuis l'import (remplacé ou retouché) : on n'y touche pas.
+		if ( $known && $known !== $current ) {
+			continue;
+		}
+		if ( md5_file( $photo['source'] ) !== $current ) {
+			$todo[ $id ] = $photo;
+		}
+	}
+	return $todo;
+}
+
+function jolya_update_imported_photos() {
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	$count = 0;
+	foreach ( jolya_photos_to_update() as $id => $photo ) {
+		// Les anciennes miniatures sont supprimées avant d'être recréées.
+		$meta = wp_get_attachment_metadata( $id );
+		if ( ! empty( $meta['sizes'] ) ) {
+			$dir = dirname( $photo['path'] );
+			foreach ( $meta['sizes'] as $size ) {
+				if ( ! empty( $size['file'] ) && file_exists( $dir . '/' . $size['file'] ) ) {
+					wp_delete_file( $dir . '/' . $size['file'] );
+				}
+			}
+		}
+		if ( ! copy( $photo['source'], $photo['path'] ) ) {
+			continue;
+		}
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $photo['path'] ) );
+		update_post_meta( $id, '_jolya_asset_hash', md5_file( $photo['path'] ) );
+		$count++;
+	}
+	return $count;
+}
+
+add_action( 'admin_notices', function () {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	if ( isset( $_GET['jolya_photos'] ) ) { // phpcs:ignore
+		$n = absint( $_GET['jolya_photos'] ); // phpcs:ignore
+		echo '<div class="notice notice-success is-dismissible"><p><strong>JOLYA CAFTAN :</strong> ' . esc_html( $n ) . ' photo(s) de la collection mise(s) à jour. Rechargez le site avec Ctrl + F5.</p></div>';
+		return;
+	}
+	if ( get_option( 'jolya_photos_version' ) === JOLYA_VERSION ) {
+		return;
+	}
+	$count = count( jolya_photos_to_update() );
+	if ( ! $count ) {
+		update_option( 'jolya_photos_version', JOLYA_VERSION );
+		return;
+	}
+	$go   = wp_nonce_url( admin_url( 'admin-post.php?action=jolya_update_photos' ), 'jolya_photos' );
+	$skip = wp_nonce_url( admin_url( 'admin-post.php?action=jolya_skip_photos' ), 'jolya_photos' );
+	echo '<div class="notice notice-info"><p><strong>JOLYA CAFTAN :</strong> cette version du thème contient des photos de caftans plus nettes et plus naturelles. Mettre à jour les ' . esc_html( $count ) . ' photo(s) importée(s) avec la collection ? Les photos que vous avez ajoutées vous-même ne sont pas modifiées.</p><p><a class="button button-primary" href="' . esc_url( $go ) . '">Mettre à jour les photos</a> <a class="button" href="' . esc_url( $skip ) . '">Non merci</a></p></div>';
+} );
+
+add_action( 'admin_post_jolya_update_photos', function () {
+	if ( ! current_user_can( 'manage_options' ) || ! check_admin_referer( 'jolya_photos' ) ) {
+		wp_die( 'Action non autorisée.' );
+	}
+	$count = jolya_update_imported_photos();
+	update_option( 'jolya_photos_version', JOLYA_VERSION );
+	wp_safe_redirect( add_query_arg( 'jolya_photos', $count, admin_url() ) );
+	exit;
+} );
+
+add_action( 'admin_post_jolya_skip_photos', function () {
+	if ( ! current_user_can( 'manage_options' ) || ! check_admin_referer( 'jolya_photos' ) ) {
+		wp_die( 'Action non autorisée.' );
+	}
+	update_option( 'jolya_photos_version', JOLYA_VERSION );
+	wp_safe_redirect( admin_url() );
+	exit;
+} );
 
 function jolya_import_demo() {
 	if ( ! class_exists( 'WC_Product_Simple' ) ) {
