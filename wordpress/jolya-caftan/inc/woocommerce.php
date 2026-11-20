@@ -51,6 +51,30 @@ function jolya_card_from_product( $product ) {
 		) ) : '',
 		'hover'    => $hover,
 		'sold_out' => ! $product->is_in_stock(),
+		'cart'     => jolya_card_cart_button( $product ),
+	);
+}
+
+/** Bouton « Ajouter au panier » d'une carte (ou « Choisir la taille » pour un produit à variantes). */
+function jolya_card_cart_button( $product ) {
+	if ( ! $product->is_in_stock() || ! $product->is_purchasable() ) {
+		return '';
+	}
+	$simple = $product->is_type( 'simple' );
+	$label  = $simple ? 'Ajouter au panier' : 'Choisir la taille';
+	$classes = array( 'card__add', 'button', 'product_type_' . $product->get_type() );
+	if ( $simple && $product->supports( 'ajax_add_to_cart' ) ) {
+		$classes[] = 'add_to_cart_button';
+		$classes[] = 'ajax_add_to_cart';
+	}
+	return sprintf(
+		'<a href="%1$s" data-quantity="1" data-product_id="%2$d" data-product_sku="%3$s" class="%4$s" rel="nofollow" aria-label="%5$s"><span>%6$s</span></a>',
+		esc_url( $simple ? $product->add_to_cart_url() : $product->get_permalink() ),
+		$product->get_id(),
+		esc_attr( $product->get_sku() ),
+		esc_attr( implode( ' ', $classes ) ),
+		esc_attr( $label . ' : ' . $product->get_name() ),
+		esc_html( $label )
 	);
 }
 

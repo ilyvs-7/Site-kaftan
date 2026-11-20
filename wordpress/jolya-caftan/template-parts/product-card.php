@@ -30,4 +30,7 @@ $index = isset( $args['index'] ) ? (int) $args['index'] : 0;
 	<?php if ( $card['short'] ) : ?>
 		<p class="card__text"><?php echo esc_html( $card['short'] ); ?></p>
 	<?php endif; ?>
+	<?php if ( ! empty( $card['cart'] ) ) : ?>
+		<div class="card__actions"><?php echo $card['cart']; // phpcs:ignore ?></div>
+	<?php endif; ?>
 </article>

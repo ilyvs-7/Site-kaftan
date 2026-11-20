@@ -4231,3 +4231,87 @@ body {
   transform: none;
   pointer-events: auto;
 }
+
+/* =====================================================
+   v1.7.1 — BOUTON « AJOUTER AU PANIER » SUR LES CARTES
+   ===================================================== */
+
+.card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 16px;
+}
+
+.woocommerce .card__actions a.button.card__add,
+.card__actions .card__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.woocommerce .card__actions a.button.card__add:hover,
+.card__actions .card__add:hover {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--paper);
+}
+
+/* Pendant l'ajout, puis une fois ajouté */
+.card__actions .card__add.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.card__actions .card__add.loading::after,
+.card__actions .card__add.added::after {
+  display: none !important;
+}
+
+.card__actions .card__add.added span::after {
+  content: " ✓";
+}
+
+.card__actions a.added_to_cart {
+  width: 100%;
+  padding: 2px 0;
+  color: var(--ink);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .woocommerce .card__actions a.button.card__add,
+  .card__actions .card__add {
+    min-height: 44px;
+    padding: 0 10px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+}
+
+.woocommerce .card__actions a.button.card__add,
+.card__actions .card__add {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
