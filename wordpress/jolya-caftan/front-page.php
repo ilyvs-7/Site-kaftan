@@ -46,6 +46,32 @@ $shop_url = jolya_shop_url();
 	</div>
 </div>
 
+<!-- DEUX ENTRÉES : ACHETER / LOUER -->
+<section class="offers" aria-label="Acheter ou louer">
+	<a class="offer" href="<?php echo esc_url( $shop_url ); ?>" data-reveal>
+		<span class="offer__media">
+			<img src="<?php echo esc_url( jolya_image_opt( 'offer_sale_image', 'emeraude-face.webp' ) ); ?>" alt="" loading="lazy" decoding="async">
+		</span>
+		<span class="offer__body">
+			<span class="eyebrow">Vente</span>
+			<span class="offer__title"><?php echo esc_html( jolya_opt( 'offer_sale_title' ) ); ?></span>
+			<span class="offer__text"><?php echo esc_html( jolya_opt( 'offer_sale_text' ) ); ?></span>
+			<span class="offer__cta">Voir les caftans à la vente <span aria-hidden="true">↗</span></span>
+		</span>
+	</a>
+	<a class="offer" href="<?php echo esc_url( jolya_page_url( 'location', '#contact' ) ); ?>" data-reveal style="--d: .12s">
+		<span class="offer__media">
+			<img src="<?php echo esc_url( jolya_image_opt( 'offer_rent_image', 'lilas-face.webp' ) ); ?>" alt="" loading="lazy" decoding="async">
+		</span>
+		<span class="offer__body">
+			<span class="eyebrow">Location</span>
+			<span class="offer__title"><?php echo esc_html( jolya_opt( 'offer_rent_title' ) ); ?></span>
+			<span class="offer__text"><?php echo esc_html( jolya_opt( 'offer_rent_text' ) ); ?></span>
+			<span class="offer__cta">Faire une demande de location <span aria-hidden="true">↗</span></span>
+		</span>
+	</a>
+</section>
+
 <!-- MANIFESTE -->
 <section class="manifesto" id="manifeste">
 	<p class="eyebrow" data-reveal>L'art du caftan</p>
@@ -116,10 +142,10 @@ $shop_url = jolya_shop_url();
 		</article>
 		<article class="craft__item" data-reveal style="--d: .24s">
 			<span class="craft__num">03</span>
-			<h3>À acheter ou à louer</h3>
-			<p>Gardez la pièce qui vous ressemble, ou louez-la le temps d'un mariage ou d'une soirée.</p>
-			<?php if ( jolya_page_url( 'location' ) ) : ?>
-				<p class="craft__link"><a href="<?php echo esc_url( jolya_page_url( 'location' ) ); ?>">La location <span aria-hidden="true">↗</span></a></p>
+			<h3>Conseil personnalisé</h3>
+			<p>Modèle, couleur, taille : nous vous aidons à choisir la pièce juste pour votre occasion.</p>
+			<?php if ( jolya_page_url( 'contact' ) ) : ?>
+				<p class="craft__link"><a href="<?php echo esc_url( jolya_page_url( 'contact' ) ); ?>">Nous écrire <span aria-hidden="true">↗</span></a></p>
 			<?php endif; ?>
 		</article>
 	</div>

@@ -37,9 +37,15 @@
   // L'en-tête la suit, puis se colle en haut de l'écran (sinon un vide apparaît au-dessus).
   var adminBar = document.body.classList.contains("admin-bar");
 
+  var heroSection = document.querySelector(".hero");
+
   function onHeaderScroll() {
     if (!header) return;
     var y = window.scrollY;
+    // Accueil : le bouton WhatsApp apparaît une fois la grande photo passée.
+    if (heroSection) {
+      document.body.classList.toggle("is-past-hero", y > heroSection.offsetHeight * 0.6);
+    }
     if (adminBar) {
       header.style.top = window.innerWidth <= 600 ? Math.max(0, 46 - y) + "px" : "";
     }
@@ -153,6 +159,9 @@
       if (rect.bottom < -200 || rect.top > vh + 200) return;
       var speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
       var offset = (rect.top + rect.height / 2 - vh / 2) * -speed;
+      // Décalage limité : l'image ne laisse jamais de vide dans son cadre.
+      var limit = rect.height * 0.035;
+      offset = Math.max(-limit, Math.min(limit, offset));
       el.style.transform = "translate3d(0," + offset.toFixed(1) + "px,0)";
     });
   }
@@ -175,6 +184,31 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   onScroll();
+
+  /* ---------- Fiche caftan : barre d'achat sur téléphone ---------- */
+
+  var buyBar = document.querySelector("[data-buy-bar]");
+  var cartForm = document.querySelector("form.cart");
+
+  if (buyBar && cartForm && "IntersectionObserver" in window) {
+    var buyButton = cartForm.querySelector(".single_add_to_cart_button");
+
+    // La barre apparaît tant que le vrai bouton d'achat n'est pas à l'écran.
+    new IntersectionObserver(function (entries) {
+      var hidden = !entries[0].isIntersecting;
+      buyBar.classList.toggle("is-visible", hidden);
+      document.body.classList.toggle("has-buy-bar", hidden);
+    }).observe(cartForm);
+
+    buyBar.querySelector("[data-buy-bar-go]").addEventListener("click", function () {
+      var variable = cartForm.classList.contains("variations_form");
+      if (buyButton && !variable && !buyButton.disabled) {
+        buyButton.click();
+      } else {
+        cartForm.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      }
+    });
+  }
 
   /* ---------- Location : récapitulatif en direct ---------- */
 

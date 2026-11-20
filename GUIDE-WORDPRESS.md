@@ -82,6 +82,17 @@ passer la commande en « Terminée ».
 - *Fiche caftan — informations* : textes « Tailles », « Livraison », « Entretien » affichés sur chaque caftan
 - *Contact* : e-mail, WhatsApp, Instagram
 
+### Accueil : les deux encadrés « Acheter » et « Louer »
+**Apparence → Personnaliser → JOLYA — Contenu du site → Accueil — Acheter / Louer** : photo, titre
+et texte de chaque encadré.
+
+### Bouton WhatsApp
+Dès qu'un numéro est indiqué dans *Personnaliser → Contact → Numéro WhatsApp*, un bouton vert
+apparaît en bas à droite de toutes les pages. Laisser le champ vide pour le masquer.
+
+### Icône de l'onglet
+Par défaut, un « J » doré. Pour mettre le logo : *Personnaliser → Identité du site → Icône du site*.
+
 ### Modifier une page (À propos, Location, FAQ…)
 **Pages → Toutes les pages** → cliquer sur la page → modifier le texte directement → **Mettre à jour**.
 - La phrase sous le titre se règle dans le panneau de droite : **Extrait**.

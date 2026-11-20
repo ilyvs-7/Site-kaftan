@@ -3839,3 +3839,395 @@ body {
 .site-header--over:not(.is-scrolled) .header-cart__icon {
   filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
 }
+
+/* =====================================================
+   v1.7 — FINITIONS : ACHETER / LOUER, VENTE, FICHE, WHATSAPP, PAIEMENT
+   ===================================================== */
+
+/* ---------- Accueil : deux grandes entrées Acheter / Louer ---------- */
+
+.offers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 28px);
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(60px, 7vw, 120px) var(--gutter) 0;
+}
+
+.offer {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: stretch;
+  min-height: clamp(320px, 30vw, 520px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(251, 248, 242, 0.72);
+  isolation: isolate;
+  transition: border-color 0.4s ease, box-shadow 0.5s ease, transform 0.6s var(--ease-out);
+}
+
+.offer__media {
+  position: relative;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+.offer__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.offer__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(24px, 3vw, 56px);
+}
+
+.offer__body .eyebrow {
+  margin: 0;
+}
+
+.offer__title {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(40px, 4.4vw, 80px);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.offer__text {
+  max-width: 360px;
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1vw, 17px);
+  line-height: 1.7;
+}
+
+.offer__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.offer__cta span {
+  transition: transform 0.5s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .offer:hover {
+    border-color: rgba(27, 23, 20, 0.35);
+    box-shadow: 0 24px 60px -30px rgba(42, 29, 18, 0.45);
+  }
+
+  .offer:hover .offer__media img {
+    transform: scale(1.05);
+  }
+
+  .offer:hover .offer__cta span {
+    transform: translate(3px, -3px);
+  }
+}
+
+/* ---------- Menu : page en cours ---------- */
+
+.site-nav .menu-item--pill.is-current a {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.site-nav li:not(.menu-item--pill).is-current a::after {
+  transform: scaleX(1);
+}
+
+.mobile-menu .is-current a {
+  color: var(--gold-light);
+}
+
+/* ---------- Page Vente : introduction ---------- */
+
+.shop-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px 40px;
+  margin: 18px 0 8px;
+}
+
+.shop-intro__text {
+  max-width: 560px;
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.7vw, 28px);
+  line-height: 1.35;
+}
+
+.shop-intro__link {
+  padding: 12px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 13px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.shop-intro__link strong {
+  font-weight: 500;
+}
+
+.shop-intro__link:hover {
+  border-color: var(--ink);
+  background: rgba(251, 248, 242, 0.9);
+}
+
+/* ---------- Fiche caftan : barre d'achat (téléphone) ---------- */
+
+.buy-bar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .buy-bar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    background: rgba(251, 248, 242, 0.96);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 -12px 30px -18px rgba(42, 29, 18, 0.35);
+    transform: translateY(110%);
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .buy-bar.is-visible {
+    transform: none;
+  }
+
+  .buy-bar__info {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .buy-bar__name {
+    overflow: hidden;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .buy-bar__price {
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  .buy-bar__price del {
+    color: var(--muted);
+  }
+
+  .buy-bar__price ins {
+    text-decoration: none;
+  }
+
+  .buy-bar__button {
+    flex-shrink: 0;
+    min-height: 48px;
+    padding: 0 22px;
+  }
+
+  .single-product .site-footer {
+    padding-bottom: calc(26px + 80px);
+  }
+}
+
+/* ---------- Bouton WhatsApp flottant ---------- */
+
+.wa-float {
+  position: fixed;
+  right: calc(18px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 85;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1f8f4e;
+  color: #fff;
+  box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.45);
+  transition: transform 0.4s var(--ease-out), bottom 0.5s var(--ease-out);
+}
+
+.wa-float svg {
+  width: 30px;
+  height: 30px;
+}
+
+.wa-float:hover {
+  transform: scale(1.06);
+}
+
+.has-buy-bar .wa-float {
+  bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+}
+
+.menu-open .wa-float {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- Panier et paiement : champs au style du site ---------- */
+
+.wc-block-components-text-input input[type="text"],
+.wc-block-components-text-input input[type="email"],
+.wc-block-components-text-input input[type="tel"],
+.wc-block-components-text-input input[type="number"],
+.wc-block-components-text-input input[type="password"],
+.wc-block-components-combobox .wc-block-components-combobox-control input.components-combobox-control__input,
+.wc-blocks-components-select .wc-blocks-components-select__select,
+.wc-block-components-textarea {
+  border-color: var(--line) !important;
+  border-radius: 12px !important;
+  background-color: rgba(251, 248, 242, 0.85) !important;
+  color: var(--ink) !important;
+  font-family: var(--sans) !important;
+}
+
+.wc-block-components-text-input input:focus,
+.wc-block-components-combobox .wc-block-components-combobox-control input.components-combobox-control__input:focus,
+.wc-blocks-components-select .wc-blocks-components-select__select:focus,
+.wc-block-components-textarea:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 1px var(--gold) !important;
+}
+
+.wc-block-components-checkout-step__title,
+.wc-block-components-title.wc-block-components-title {
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(24px, 1.8vw, 32px);
+  font-weight: 400;
+}
+
+.wc-block-components-sidebar .wc-block-components-panel,
+.wp-block-woocommerce-checkout-order-summary-block {
+  border-color: var(--line) !important;
+  border-radius: var(--radius);
+  background: rgba(251, 248, 242, 0.7);
+}
+
+.wc-block-components-checkout-place-order-button,
+.wc-block-cart__submit-button {
+  min-height: 58px;
+}
+
+/* ---------- Tablettes ---------- */
+
+@media (max-width: 1100px) {
+  .offer {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .offer__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .offer__media img {
+    object-position: center 20%;
+  }
+}
+
+/* ---------- Téléphones ---------- */
+
+@media (max-width: 760px) {
+  .offers {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 48px;
+  }
+
+  .offer {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-rows: none;
+    min-height: 0;
+  }
+
+  .offer__media {
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+
+  .offer__body {
+    gap: 10px;
+    padding: 22px 18px;
+  }
+
+  .offer__title {
+    font-size: 36px;
+  }
+
+  .offer__text {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .offer__cta {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .shop-intro {
+    margin-top: 10px;
+  }
+
+  .wa-float {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Accueil : bouton WhatsApp masqué sur la grande photo, visible ensuite. */
+.home .wa-float {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.5s var(--ease-out);
+}
+
+.home.is-past-hero .wa-float {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}

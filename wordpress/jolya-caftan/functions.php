@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.6.1' );
+define( 'JOLYA_VERSION', '1.7.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -83,14 +83,21 @@ function jolya_default_menu() {
 	$home = home_url( '/' );
 	$shop = function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ? wc_get_page_permalink( 'shop' ) : $home . '#collection';
 	// Vente et Location : deux boutons bien distincts.
-	$items = array(
-		array( 'Vente', $shop, 'menu-item--pill' ),
-		array( 'Location', jolya_page_url( 'location', $home . '#contact' ), 'menu-item--pill' ),
-		array( 'Contact', jolya_page_url( 'contact', $home . '#contact' ), '' ),
+	$in_shop = function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() || is_product() );
+	$items   = array(
+		array( 'Vente', $shop, 'menu-item--pill', $in_shop ),
+		array( 'Location', jolya_page_url( 'location', $home . '#contact' ), 'menu-item--pill', is_page( 'location' ) ),
+		array( 'Contact', jolya_page_url( 'contact', $home . '#contact' ), '', is_page( 'contact' ) ),
 	);
 	echo '<ul class="menu">';
 	foreach ( $items as $item ) {
-		printf( '<li class="%s"><a href="%s">%s</a></li>', esc_attr( $item[2] ), esc_url( $item[1] ), esc_html( $item[0] ) );
+		printf(
+			'<li class="%s"><a href="%s"%s>%s</a></li>',
+			esc_attr( trim( $item[2] . ( $item[3] ? ' is-current' : '' ) ) ),
+			esc_url( $item[1] ),
+			$item[3] ? ' aria-current="page"' : '',
+			esc_html( $item[0] )
+		);
 	}
 	echo '</ul>';
 }
@@ -120,3 +127,76 @@ function jolya_contact_links( $class = 'btn btn--line' ) {
 		printf( '<a class="%s" href="%s" target="_blank" rel="noopener"><span>Instagram</span>%s</a>', esc_attr( $class ), $insta, $arrow );
 	}
 }
+
+/* ---------------------------------------------------------------
+ * Partage sur les réseaux (WhatsApp, Instagram, Facebook) et icône d'onglet.
+ * Désactivé automatiquement si une extension de référencement s'en charge.
+ * ------------------------------------------------------------- */
+
+function jolya_seo_plugin_active() {
+	return defined( 'WPSEO_VERSION' ) || class_exists( 'RankMath' ) || defined( 'AIOSEO_VERSION' ) || defined( 'SEOPRESS_VERSION' );
+}
+
+add_action( 'wp_head', function () {
+	if ( jolya_seo_plugin_active() ) {
+		return;
+	}
+
+	$title       = wp_get_document_title();
+	$description = '';
+	$image       = '';
+	$type        = 'website';
+
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		$product     = wc_get_product( get_queried_object_id() );
+		$description = $product ? $product->get_short_description() : '';
+		$image       = $product && $product->get_image_id() ? wp_get_attachment_image_url( $product->get_image_id(), 'large' ) : '';
+		$type        = 'product';
+	} elseif ( is_singular() ) {
+		$post        = get_queried_object();
+		$description = has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_trim_words( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ), 30 );
+		$image       = get_the_post_thumbnail_url( $post, 'large' );
+	}
+
+	if ( is_front_page() || ! $description ) {
+		$description = jolya_opt( 'hero_text' );
+	}
+	if ( ! $image ) {
+		$image = jolya_image_opt( 'hero_image', 'hero-fuchsia.webp' );
+	}
+
+	$description = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $description ) ) );
+	$url         = is_singular() ? get_permalink() : home_url( add_query_arg( array() ) );
+
+	printf( '<meta name="description" content="%s">' . "\n", esc_attr( $description ) );
+	printf( '<meta property="og:type" content="%s">' . "\n", esc_attr( $type ) );
+	printf( '<meta property="og:site_name" content="%s">' . "\n", esc_attr( get_bloginfo( 'name' ) ) );
+	printf( '<meta property="og:locale" content="fr_FR">' . "\n" );
+	printf( '<meta property="og:title" content="%s">' . "\n", esc_attr( $title ) );
+	printf( '<meta property="og:description" content="%s">' . "\n", esc_attr( $description ) );
+	printf( '<meta property="og:url" content="%s">' . "\n", esc_url( $url ) );
+	printf( '<meta property="og:image" content="%s">' . "\n", esc_url( $image ) );
+	echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+}, 3 );
+
+// Icône d'onglet par défaut (un « J » doré), tant qu'aucune icône n'est choisie
+// dans Apparence → Personnaliser → Identité du site.
+add_action( 'wp_head', function () {
+	if ( ! has_site_icon() ) {
+		printf( '<link rel="icon" href="%s" type="image/svg+xml">' . "\n", esc_url( jolya_asset( 'favicon.svg' ) ) );
+	}
+}, 4 );
+
+/** Bouton WhatsApp flottant (affiché si un numéro est renseigné). */
+add_action( 'wp_footer', function () {
+	$phone = preg_replace( '/\D+/', '', (string) jolya_opt( 'whatsapp' ) );
+	if ( ! $phone ) {
+		return;
+	}
+	$text = rawurlencode( 'Bonjour, je vous contacte depuis le site JOLYA CAFTAN.' );
+	printf(
+		'<a class="wa-float" href="https://wa.me/%1$s?text=%2$s" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3.2 29l6.9-1.8c1.9 1 4 1.6 6 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.4c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.6C5.3 9.8 10.1 5 16 5s10.7 4.8 10.7 10.7S21.9 26.4 16 26.4zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.7-.5z"/></svg></a>',
+		esc_attr( $phone ),
+		esc_attr( $text )
+	);
+} );

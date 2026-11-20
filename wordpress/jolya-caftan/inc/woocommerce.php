@@ -257,3 +257,38 @@ function jolya_product_rent_link() {
 	);
 }
 add_action( 'woocommerce_single_product_summary', 'jolya_product_rent_link', 31 );
+
+// ---------- Page Vente : introduction et lien vers la location ----------
+
+add_action( 'woocommerce_archive_description', function () {
+	if ( ! is_shop() || is_search() ) {
+		return;
+	}
+	$rent = jolya_page_url( 'location' );
+	echo '<div class="shop-intro">';
+	echo '<p class="shop-intro__text">Des pièces brodées, prêtes à porter, à garder pour toutes vos grandes occasions.</p>';
+	if ( $rent ) {
+		printf( '<a class="shop-intro__link" href="%s">Vous préférez louer ? <strong>Voir la location</strong> <span aria-hidden="true">↗</span></a>', esc_url( $rent ) );
+	}
+	echo '</div>';
+}, 20 );
+
+// ---------- Fiche caftan : barre d'achat qui reste visible sur téléphone ----------
+
+add_action( 'woocommerce_after_single_product', function () {
+	global $product;
+	if ( ! $product || ! $product->is_purchasable() || ! $product->is_in_stock() ) {
+		return;
+	}
+	?>
+	<div class="buy-bar" data-buy-bar aria-hidden="true">
+		<div class="buy-bar__info">
+			<span class="buy-bar__name"><?php echo esc_html( $product->get_name() ); ?></span>
+			<span class="buy-bar__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
+		</div>
+		<button class="btn btn--dark buy-bar__button" type="button" tabindex="-1" data-buy-bar-go>
+			<span><?php echo esc_html( $product->is_type( 'simple' ) ? 'Ajouter au panier' : 'Choisir' ); ?></span>
+		</button>
+	</div>
+	<?php
+} );

@@ -54,7 +54,7 @@ while ( have_posts() ) :
 				<h2 class="section-title" data-reveal>Une question ?<br><em>Écrivez-nous.</em></h2>
 				<div class="contact__links" data-reveal>
 					<a class="btn btn--dark" href="<?php echo esc_url( jolya_page_url( 'contact', home_url( '/#contact' ) ) ); ?>"><span>Nous contacter</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
-					<a class="btn btn--line" href="<?php echo esc_url( jolya_shop_url() ); ?>"><span>Voir la collection</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+					<a class="btn btn--line" href="<?php echo esc_url( jolya_shop_url() ); ?>"><span>Voir les caftans à la vente</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
 				</div>
 			</div>
 		</section>
