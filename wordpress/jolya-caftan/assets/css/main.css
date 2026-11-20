@@ -883,9 +883,7 @@ main {
   gap: clamp(40px, 5vw, 80px) clamp(16px, 2.4vw, 38px);
 }
 
-.cards > .card:nth-child(even) {
-  margin-top: clamp(30px, 5vw, 80px);
-}
+
 
 .card {
   min-width: 0;
@@ -1824,7 +1822,7 @@ main .page {
   }
 
   .site-header__bar {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     min-height: 66px;
   }
 
@@ -1931,9 +1929,7 @@ main .page {
     font-size: 11px;
   }
 
-  .cards > .card:nth-child(even) {
-    margin-top: 28px;
-  }
+
 
   .card__body {
     flex-direction: column;
@@ -3756,4 +3752,90 @@ body {
   .chip-choice small {
     font-size: 11px;
   }
+}
+
+/* =====================================================
+   v1.6.1 — PETITS ÉCRANS : MENU TOUJOURS VISIBLE, ACCUEIL LISIBLE
+   ===================================================== */
+
+.header-cart__icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 900px) {
+  .brand {
+    min-width: 0;
+  }
+
+  .site-header__actions {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Panier : icône à la place du mot, pour laisser la place au menu */
+  .header-cart__label {
+    display: none;
+  }
+
+  .header-cart__icon {
+    display: block;
+  }
+
+  .header-cart {
+    gap: 4px;
+  }
+
+  .brand {
+    font-size: 17px;
+    letter-spacing: 0.16em;
+  }
+
+  .menu-toggle {
+    min-width: 40px;
+    padding: 10px 0 10px 4px;
+  }
+}
+
+@media (max-width: 340px) {
+  .brand {
+    font-size: 15px;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Accueil sur téléphone : voile plus sombre derrière le texte, petit titre plus clair */
+@media (max-width: 760px) {
+  .hero__veil {
+    background:
+      linear-gradient(0deg, rgba(20, 12, 6, 0.94) 0%, rgba(20, 12, 6, 0.8) 42%, rgba(20, 12, 6, 0.45) 66%, rgba(20, 12, 6, 0.12) 84%),
+      linear-gradient(180deg, rgba(20, 12, 6, 0.55) 0%, rgba(20, 12, 6, 0) 22%);
+  }
+
+  .hero__eyebrow {
+    color: #f1dfb6;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .hero__title,
+  .hero__text {
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  }
+}
+
+/* Logo lisible au-dessus de la photo d'accueil */
+.site-header--over:not(.is-scrolled) .brand,
+.site-header--over:not(.is-scrolled) .header-cart,
+.site-header--over:not(.is-scrolled) .menu-toggle {
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.55);
+}
+
+.site-header--over:not(.is-scrolled) .brand span {
+  opacity: 0.9;
+}
+
+.site-header--over:not(.is-scrolled) .header-cart__icon {
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
 }

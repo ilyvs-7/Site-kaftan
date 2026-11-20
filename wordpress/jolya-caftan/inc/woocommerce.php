@@ -113,7 +113,7 @@ function jolya_cart_link() {
 	}
 	$count = WC()->cart->get_cart_contents_count();
 	return sprintf(
-		'<a class="header-cart" href="%s" aria-label="Panier, %d article(s)">Panier <span class="header-cart__count">%d</span></a>',
+		'<a class="header-cart" href="%s" aria-label="Panier, %d article(s)"><span class="header-cart__label">Panier</span><svg class="header-cart__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 8h12l-1 12H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span class="header-cart__count">%d</span></a>',
 		esc_url( wc_get_cart_url() ),
 		$count,
 		$count
