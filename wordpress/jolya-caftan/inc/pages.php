@@ -66,8 +66,8 @@ function jolya_site_pages() {
 	$todo = '<strong>[À COMPLÉTER]</strong>';
 
 	return array(
-		'la-maison' => array(
-			'title'   => 'La maison',
+		'a-propos' => array(
+			'title'   => 'À propos',
 			'lead'    => "Une maison de caftans née d'une passion : faire rayonner un savoir-faire séculaire dans des pièces d'aujourd'hui.",
 			'content' =>
 				jolya_b_h( "Une histoire de transmission" ) .
@@ -81,29 +81,6 @@ function jolya_site_pages() {
 				), 'jolya-values' ) .
 				jolya_b_h( "Le temps du geste" ) .
 				jolya_b_p( "Un caftan brodé demande de longues heures de travail. Le motif est d'abord tracé, puis chaque point est posé à la main. C'est ce temps, invisible et pourtant partout présent, qui donne à la pièce sa profondeur et son éclat." ),
-		),
-
-		'sur-mesure' => array(
-			'title'   => 'Sur mesure',
-			'lead'    => "Votre caftan, à vos mesures et à l'image de votre occasion. Une création pensée avec vous, du premier échange aux dernières finitions.",
-			'content' =>
-				jolya_b_h( "Comment ça se passe" ) .
-				jolya_b_columns( array(
-					array( "1. L'échange", "Vous nous présentez votre occasion, vos envies de couleurs, de matières et de broderies. Nous vous conseillons et vous proposons une direction." ),
-					array( "2. Les mesures", "Nous vous guidons pas à pas pour prendre vos mesures chez vous. Quelques minutes et un mètre ruban suffisent." ),
-					array( "3. La confection", "Votre caftan est réalisé puis contrôlé. Nous vous tenons informée de l'avancement jusqu'à l'expédition." ),
-				), 'jolya-steps' ) .
-				jolya_b_h( "Ce que vous pouvez personnaliser" ) .
-				jolya_b_list( array(
-					"La longueur du caftan et celle des manches",
-					"La couleur et le tissu, selon les étoffes disponibles",
-					"Le style et la couleur des broderies",
-					"La ceinture : assortie, bijou ou en satin",
-				) ) .
-				jolya_b_h( "Délais" ) .
-				jolya_b_p( "Une création sur mesure demande du temps. Nous vous recommandons de nous contacter au moins deux mois avant votre événement. Le délai précis vous est confirmé avant toute commande." ) .
-				jolya_b_h( "Parlons de votre projet" ) .
-				jolya_b_shortcode( '[jolya_contact sujet="Sur mesure"]' ),
 		),
 
 		'location' => array(
@@ -141,8 +118,8 @@ function jolya_site_pages() {
 					"<strong>Hanches</strong> : mesurez à l'endroit le plus large du bassin.",
 					"<strong>Longueur</strong> : de l'épaule jusqu'au sol, en portant les chaussures prévues pour l'événement.",
 				) ) .
-				jolya_b_h( "Une morphologie particulière ?" ) .
-				jolya_b_p( "Longueur, largeur des manches, carrure : chaque caftan peut être ajusté. Découvrez notre service sur mesure ou contactez-nous avant de commander." ),
+				jolya_b_h( "Un doute ?" ) .
+				jolya_b_p( "Écrivez-nous avant de commander ou de réserver : nous vous aidons à choisir la bonne taille." ),
 		),
 
 		'livraison-retours' => array(
@@ -154,7 +131,6 @@ function jolya_site_pages() {
 				jolya_b_p( "Pour une livraison hors de France métropolitaine, contactez-nous avant de commander : nous vous indiquerons les conditions." ) .
 				jolya_b_h( "Retours" ) .
 				jolya_b_p( "Conformément à la loi, vous disposez de 14 jours à compter de la réception de votre commande pour changer d'avis. La pièce doit nous être retournée dans son état d'origine, non portée, avec son emballage." ) .
-				jolya_b_p( "Les créations réalisées sur mesure ou personnalisées à votre demande ne peuvent pas être retournées." ) .
 				jolya_b_h( "Un problème avec votre commande ?" ) .
 				jolya_b_p( "Écrivez-nous dès réception, avec une photo si possible. Nous trouverons une solution ensemble." ),
 		),
@@ -169,7 +145,6 @@ function jolya_site_pages() {
 				jolya_b_details( "Les couleurs sont-elles fidèles aux photos ?", "Nous veillons à ce que les photos soient les plus fidèles possible. Une légère différence de teinte peut toutefois exister selon votre écran." ) .
 				jolya_b_h( "Commande et paiement" ) .
 				jolya_b_details( "Quels moyens de paiement acceptez-vous ?", "Le paiement s'effectue en ligne par carte bancaire, sur une page sécurisée. Vos données bancaires ne nous sont jamais transmises." ) .
-				jolya_b_details( "Puis-je commander un caftan sur mesure ?", "Oui. Longueur, manches, couleur, broderies : rendez-vous sur la page Sur mesure pour nous présenter votre projet." ) .
 				jolya_b_details( "Puis-je louer un caftan ?", "Oui. Choisissez votre modèle et la date de votre événement sur la page Location : nous vous confirmons la disponibilité, le tarif et la caution." ) .
 				jolya_b_h( "Entretien" ) .
 				jolya_b_details( "Comment entretenir mon caftan ?", "Nous recommandons un nettoyage à sec chez un professionnel. Conservez votre caftan suspendu, dans une housse, à l'abri de la lumière et de l'humidité." ) .
@@ -207,7 +182,6 @@ function jolya_site_pages() {
 				jolya_b_p( "Les produits sont livrés à l'adresse indiquée lors de la commande, dans un délai de {$todo}. En cas de retard, le client en est informé." ) .
 				jolya_b_h( "5. Droit de rétractation" ) .
 				jolya_b_p( "Le client dispose d'un délai de 14 jours à compter de la réception pour exercer son droit de rétractation, sans avoir à motiver sa décision. Les frais de retour sont {$todo} à la charge du client / du vendeur. Le remboursement intervient dans les 14 jours suivant la notification de la rétractation, sous réserve du retour du produit." ) .
-				jolya_b_p( "Conformément à l'article L221-28 du Code de la consommation, ce droit ne s'applique pas aux biens confectionnés selon les spécifications du client ou nettement personnalisés (créations sur mesure)." ) .
 				jolya_b_h( "6. Garanties" ) .
 				jolya_b_p( "Les produits bénéficient de la garantie légale de conformité et de la garantie des vices cachés, dans les conditions prévues par la loi." ) .
 				jolya_b_h( "7. Litiges" ) .
@@ -241,7 +215,7 @@ function jolya_create_pages() {
 	$done = get_option( 'jolya_pages_created', null );
 	if ( null === $done ) {
 		// Sites installés avant cette version : les pages d'origine existent déjà.
-		$done = get_option( 'jolya_pages_done' ) ? array( 'la-maison', 'sur-mesure', 'contact', 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'mentions-legales', 'cgv', 'politique-de-confidentialite' ) : array();
+		$done = get_option( 'jolya_pages_done' ) ? array( 'la-maison', 'a-propos', 'sur-mesure', 'contact', 'guide-des-tailles', 'livraison-retours', 'questions-frequentes', 'mentions-legales', 'cgv', 'politique-de-confidentialite' ) : array();
 	}
 	$done    = (array) $done;
 	$created = 0;
@@ -263,6 +237,7 @@ function jolya_create_pages() {
 			'post_status'  => isset( $page['status'] ) ? $page['status'] : 'publish',
 		) );
 		if ( $id && ! is_wp_error( $id ) ) {
+			jolya_remember_content( $id );
 			$created++;
 		}
 	}
@@ -274,31 +249,70 @@ function jolya_create_pages() {
 
 add_action( 'after_switch_theme', 'jolya_create_pages' );
 
+/** Empreinte du contenu écrit par le thème : permet de savoir si la page a été modifiée depuis. */
+function jolya_remember_content( $id ) {
+	$post = get_post( $id );
+	if ( $post ) {
+		update_post_meta( $id, '_jolya_hash', md5( $post->post_content ) );
+	}
+}
+
+/** La page a-t-elle été modifiée dans WordPress depuis que le thème l'a écrite ? */
+function jolya_page_edited( $post ) {
+	$hash = get_post_meta( $post->ID, '_jolya_hash', true );
+	if ( $hash ) {
+		return md5( $post->post_content ) !== $hash;
+	}
+	return $post->post_modified_gmt !== $post->post_date_gmt;
+}
+
 /**
- * Page Location créée par la version 1.4 et jamais modifiée depuis :
- * on la remplace par la version simplifiée (formulaire seul).
+ * Mises à jour des pages lors d'une nouvelle version du thème.
+ * Une page modifiée par la cliente n'est jamais réécrite.
  */
-function jolya_upgrade_location_page() {
-	$page = get_page_by_path( 'location' );
-	if ( ! $page || $page->post_modified_gmt !== $page->post_date_gmt ) {
-		return;
+function jolya_upgrade_pages() {
+	// « La maison » devient « À propos » (lien en bas de page).
+	$maison = get_page_by_path( 'la-maison' );
+	if ( $maison && ! get_page_by_path( 'a-propos' ) ) {
+		$untouched = ! jolya_page_edited( $maison );
+		wp_update_post( array(
+			'ID'         => $maison->ID,
+			'post_title' => 'La maison' === $maison->post_title ? 'À propos' : $maison->post_title,
+			'post_name'  => 'a-propos',
+		) );
+		if ( $untouched ) {
+			jolya_remember_content( $maison->ID );
+		}
 	}
-	if ( false === strpos( $page->post_content, 'Bon à savoir' ) || false === strpos( $page->post_content, '[jolya_location]' ) ) {
-		return;
+
+	// La maison ne propose pas de sur-mesure : la page passe en brouillon (récupérable).
+	$custom = get_page_by_path( 'sur-mesure' );
+	if ( $custom && 'publish' === $custom->post_status && ! jolya_page_edited( $custom ) ) {
+		wp_update_post( array( 'ID' => $custom->ID, 'post_status' => 'draft' ) );
 	}
-	$pages = jolya_site_pages();
-	wp_update_post( array(
-		'ID'           => $page->ID,
-		'post_excerpt' => $pages['location']['lead'],
-		'post_content' => $pages['location']['content'],
-	) );
+
+	// Pages jamais modifiées : on applique les textes de la nouvelle version.
+	foreach ( jolya_site_pages() as $slug => $page ) {
+		$post = get_page_by_path( $slug );
+		if ( ! $post || jolya_page_edited( $post ) ) {
+			continue;
+		}
+		if ( $post->post_content !== $page['content'] || $post->post_excerpt !== $page['lead'] ) {
+			wp_update_post( array(
+				'ID'           => $post->ID,
+				'post_excerpt' => $page['lead'],
+				'post_content' => $page['content'],
+			) );
+		}
+		jolya_remember_content( $post->ID );
+	}
 }
 
 // Après une mise à jour du thème, les nouvelles pages sont créées à la première visite de l'administration.
 add_action( 'admin_init', function () {
 	if ( get_option( 'jolya_pages_version' ) !== JOLYA_VERSION && current_user_can( 'edit_pages' ) ) {
+		jolya_upgrade_pages();
 		jolya_create_pages();
-		jolya_upgrade_location_page();
 		update_option( 'jolya_pages_version', JOLYA_VERSION );
 	}
 } );

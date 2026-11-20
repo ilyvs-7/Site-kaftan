@@ -1,13 +1,12 @@
 <?php
 /**
- * Gabarit des pages (La maison, Sur mesure, Contact, pages d'information…).
+ * Gabarit des pages (À propos, Location, Contact, pages d'information…).
  */
 get_header();
 
 // Photo d'en-tête : image mise en avant de la page, sinon image du thème selon la page.
 $jolya_hero_fallbacks = array(
-	'la-maison'  => 'maison.webp',
-	'sur-mesure' => 'majorelle-face.webp',
+	'a-propos'   => 'apropos.webp',
 	'location'   => 'safran-face.webp',
 );
 
@@ -47,7 +46,7 @@ while ( have_posts() ) :
 		</div>
 	</article>
 
-	<?php if ( ! $jolya_is_shop && 'contact' !== $jolya_slug && 'sur-mesure' !== $jolya_slug && 'location' !== $jolya_slug ) : ?>
+	<?php if ( ! $jolya_is_shop && 'contact' !== $jolya_slug && 'location' !== $jolya_slug ) : ?>
 		<section class="cta-band">
 			<div class="cta-band__ornament" style="background-image: url('<?php echo esc_url( jolya_asset( 'ornement.webp' ) ); ?>')"></div>
 			<div class="cta-band__inner">

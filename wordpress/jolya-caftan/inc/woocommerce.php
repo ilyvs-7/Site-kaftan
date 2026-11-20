@@ -150,7 +150,7 @@ add_filter( 'woocommerce_output_related_products_args', function ( $args ) {
 // ---------- Catalogue ----------
 
 add_filter( 'woocommerce_page_title', function ( $title ) {
-	return function_exists( 'is_shop' ) && is_shop() && ! is_search() ? 'La collection' : $title;
+	return function_exists( 'is_shop' ) && is_shop() && ! is_search() ? 'Caftans à la vente' : $title;
 } );
 
 add_filter( 'woocommerce_breadcrumb_defaults', function ( $args ) {
@@ -198,12 +198,12 @@ function jolya_product_accordions( $description = null ) {
 	}
 	$panels = array(
 		'Description'          => $description,
-		'Tailles & sur-mesure' => wpautop( esc_html( jolya_opt( 'product_sizes' ) ) ),
+		'Tailles'              => wpautop( esc_html( jolya_opt( 'product_sizes' ) ) ),
 		'Livraison & retours'  => wpautop( esc_html( jolya_opt( 'product_shipping' ) ) ),
 		'Entretien'            => wpautop( esc_html( jolya_opt( 'product_care' ) ) ),
 	);
 	$links = array(
-		'Tailles & sur-mesure' => array( 'guide-des-tailles', 'Voir le guide des tailles' ),
+		'Tailles'              => array( 'guide-des-tailles', 'Voir le guide des tailles' ),
 		'Livraison & retours'  => array( 'livraison-retours', 'En savoir plus' ),
 	);
 
@@ -239,8 +239,8 @@ add_filter( 'woocommerce_product_related_products_heading', function () {
 
 // Message de réassurance sous le bouton d'achat.
 function jolya_product_assurances() {
-	$custom = jolya_page_url( 'sur-mesure' );
-	echo '<ul class="product-assurances"><li>Broderies réalisées à la main</li><li>Paiement sécurisé</li><li>' . ( $custom ? '<a href="' . esc_url( $custom ) . '">Retouches et sur-mesure sur demande</a>' : 'Retouches et sur-mesure sur demande' ) . '</li></ul>';
+	$contact = jolya_page_url( 'contact' );
+	echo '<ul class="product-assurances"><li>Broderies réalisées à la main</li><li>Paiement sécurisé</li><li>' . ( $contact ? '<a href="' . esc_url( $contact ) . '">Une question ? Conseil personnalisé</a>' : 'Conseil personnalisé sur demande' ) . '</li></ul>';
 }
 add_action( 'woocommerce_single_product_summary', 'jolya_product_assurances', 35 );
 

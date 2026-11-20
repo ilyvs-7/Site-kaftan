@@ -27,7 +27,8 @@ $shop_url = jolya_shop_url();
 		</h1>
 		<p class="hero__text" data-hero="4"><?php echo esc_html( jolya_opt( 'hero_text' ) ); ?></p>
 		<div class="hero__actions" data-hero="5">
-			<a class="btn btn--light" href="#collection"><span>Découvrir la collection</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+			<a class="btn btn--solid-light" href="<?php echo esc_url( $shop_url ); ?>"><span>Acheter un caftan</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+			<a class="btn btn--light" href="<?php echo esc_url( jolya_page_url( 'location', '#contact' ) ); ?>"><span>Louer un caftan</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
 		</div>
 	</div>
 
@@ -40,7 +41,7 @@ $shop_url = jolya_shop_url();
 <div class="marquee" aria-hidden="true">
 	<div class="marquee__track">
 		<?php for ( $i = 0; $i < 4; $i++ ) : ?>
-			<span>Fait main</span><b>✦</b><span>Broderies d'or</span><b>✦</b><span>Pièces d'exception</span><b>✦</b><span>Sur mesure</span><b>✦</b><span>Savoir-faire marocain</span><b>✦</b>
+			<span>Fait main</span><b>✦</b><span>Broderies d'or</span><b>✦</b><span>Pièces d'exception</span><b>✦</b><span>Vente &amp; location</span><b>✦</b><span>Savoir-faire marocain</span><b>✦</b>
 		<?php endfor; ?>
 	</div>
 </div>
@@ -70,7 +71,7 @@ $shop_url = jolya_shop_url();
 	</div>
 
 	<div class="collection__more" data-reveal>
-		<a class="btn btn--line" href="<?php echo esc_url( $shop_url ); ?>"><span>Voir toute la collection</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+		<a class="btn btn--line" href="<?php echo esc_url( $shop_url ); ?>"><span>Voir les caftans à la vente</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
 	</div>
 </section>
 
@@ -115,26 +116,26 @@ $shop_url = jolya_shop_url();
 		</article>
 		<article class="craft__item" data-reveal style="--d: .24s">
 			<span class="craft__num">03</span>
-			<h3>Sur mesure</h3>
-			<p>Longueur, manches, ceinture : chaque pièce peut être ajustée à vos mesures et à votre occasion.</p>
-			<?php if ( jolya_page_url( 'sur-mesure' ) ) : ?>
-				<p class="craft__link"><a href="<?php echo esc_url( jolya_page_url( 'sur-mesure' ) ); ?>">Le sur-mesure <span aria-hidden="true">↗</span></a></p>
+			<h3>À acheter ou à louer</h3>
+			<p>Gardez la pièce qui vous ressemble, ou louez-la le temps d'un mariage ou d'une soirée.</p>
+			<?php if ( jolya_page_url( 'location' ) ) : ?>
+				<p class="craft__link"><a href="<?php echo esc_url( jolya_page_url( 'location' ) ); ?>">La location <span aria-hidden="true">↗</span></a></p>
 			<?php endif; ?>
 		</article>
 	</div>
 </section>
 
-<!-- LA MAISON -->
+<!-- À PROPOS -->
 <section class="story" id="maison">
 	<div class="story__media" data-reveal="arch">
-		<img src="<?php echo esc_url( jolya_image_opt( 'story_image', 'maison.webp' ) ); ?>" alt="Architecture marocaine ciselée, inspiration de la maison JOLYA CAFTAN" loading="lazy" data-parallax="0.1">
+		<img src="<?php echo esc_url( jolya_image_opt( 'story_image', 'apropos.webp' ) ); ?>" alt="Broderies dorées d'un caftan JOLYA" loading="lazy" data-parallax="0.1">
 	</div>
 	<div class="story__content">
 		<p class="eyebrow" data-reveal>L'esprit JOLYA</p>
 		<h2 class="section-title" data-reveal><?php echo esc_html( jolya_opt( 'story_title' ) ); ?><br><em><?php echo esc_html( jolya_opt( 'story_title_2' ) ); ?></em></h2>
 		<p class="story__text" data-reveal><?php echo esc_html( jolya_opt( 'story_text' ) ); ?></p>
 		<div data-reveal>
-			<a class="btn btn--line" href="<?php echo esc_url( jolya_page_url( 'la-maison', '#contact' ) ); ?>"><span>Découvrir la maison</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
+			<a class="btn btn--line" href="<?php echo esc_url( jolya_page_url( 'a-propos', '#contact' ) ); ?>"><span>En savoir plus</span><span class="btn__arrow" aria-hidden="true">↗</span></a>
 		</div>
 	</div>
 </section>

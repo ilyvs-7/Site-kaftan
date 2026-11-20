@@ -36,7 +36,7 @@ Tout se fait dans Safari, sur iPad.
 
 ### 5. Les pages du site
 À l'activation du thème, ces pages sont créées automatiquement (Pages → Toutes les pages) :
-**La maison**, **Location** (avec formulaire de demande), **Sur mesure**, **Contact** (avec formulaire), **Guide des tailles**,
+**À propos** (lien en bas de page), **Location** (avec formulaire de demande), **Contact** (avec formulaire), **Guide des tailles**,
 **Livraison & retours**, **Questions fréquentes**.
 
 Leurs textes sont des propositions : relisez-les et adaptez-les (délais, conditions de retour,
@@ -78,11 +78,11 @@ passer la commande en « Terminée ».
 ### Modifier les textes et photos de l'accueil
 **Apparence → Personnaliser → JOLYA — Contenu du site**
 - *Accueil — grande image* : photos, titre, bandeau du haut
-- *La maison* : texte et photo
+- *Accueil — section À propos* : texte et photo
 - *Fiche caftan — informations* : textes « Tailles », « Livraison », « Entretien » affichés sur chaque caftan
 - *Contact* : e-mail, WhatsApp, Instagram
 
-### Modifier une page (La maison, Sur mesure, FAQ…)
+### Modifier une page (À propos, Location, FAQ…)
 **Pages → Toutes les pages** → cliquer sur la page → modifier le texte directement → **Mettre à jour**.
 - La phrase sous le titre se règle dans le panneau de droite : **Extrait**.
 - La photo en haut de page : **Image mise en avant**.

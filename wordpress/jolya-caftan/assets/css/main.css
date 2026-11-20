@@ -2933,13 +2933,16 @@ main {
 
 /* ---------- Panier et commande : toute la largeur, éléments plus grands ---------- */
 
-.prose:not(.prose--rich) .wc-block-components-sidebar-layout {
-  column-gap: clamp(40px, 5vw, 120px);
-}
+/* Colonne « Total » élargie sur grand écran seulement (sur téléphone, WooCommerce l'empile). */
+@media (min-width: 1000px) {
+  .prose:not(.prose--rich) .wc-block-components-sidebar-layout {
+    column-gap: clamp(40px, 5vw, 120px);
+  }
 
-.prose:not(.prose--rich) .wc-block-components-sidebar {
-  flex-basis: clamp(360px, 30vw, 520px);
-  width: clamp(360px, 30vw, 520px);
+  .prose:not(.prose--rich) .wc-block-components-sidebar {
+    flex-basis: clamp(360px, 30vw, 520px);
+    width: clamp(360px, 30vw, 520px);
+  }
 }
 
 .prose .wc-block-cart table.wc-block-cart-items .wc-block-cart-items__header .wc-block-cart-items__header-image,
@@ -3554,5 +3557,203 @@ main {
   .rent__button {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =====================================================
+   v1.6 — COINS ARRONDIS, MENU VENTE / LOCATION, TÉLÉPHONE
+   ===================================================== */
+
+:root {
+  --radius: clamp(12px, 1.3vw, 22px);
+}
+
+/* Photos des caftans aux coins arrondis.
+   isolation : évite que Safari affiche des angles droits pendant les animations. */
+.card__media,
+.feature__media,
+.rent-card__media,
+.woocommerce div.product div.images .woocommerce-product-gallery__image,
+.woocommerce div.product div.images .flex-control-thumbs img {
+  border-radius: var(--radius);
+  isolation: isolate;
+}
+
+.feature__media {
+  overflow: hidden;
+}
+
+.card__cta {
+  border-radius: calc(var(--radius) - 6px);
+}
+
+.card__badge {
+  border-radius: 999px;
+}
+
+.rent-card__media::after {
+  border-radius: inherit;
+}
+
+.prose table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__image img,
+.wc-block-components-order-summary-item__image img {
+  border-radius: calc(var(--radius) * 0.6);
+}
+
+/* Menu : Vente et Location en boutons distincts */
+.site-nav .menu {
+  align-items: center;
+}
+
+.site-nav .menu-item--pill a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 clamp(18px, 1.4vw, 28px);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+.site-nav .menu-item--pill a::after {
+  display: none;
+}
+
+.site-nav .menu-item--pill a:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.site-header--over:not(.is-scrolled) .site-nav .menu-item--pill a:hover {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.site-nav .menu {
+  gap: clamp(12px, 1.4vw, 26px);
+}
+
+.site-nav li:not(.menu-item--pill) {
+  margin-left: clamp(8px, 1vw, 20px);
+}
+
+/* Menu sur téléphone : Vente et Location mis en avant */
+.mobile-menu .menu-item--pill a::after {
+  content: " ↗";
+  color: var(--gold-light);
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+
+/* Accueil : deux boutons Acheter / Louer */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn--solid-light {
+  border-color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.btn--solid-light::before {
+  background: var(--gold-light);
+}
+
+.btn--solid-light:hover {
+  border-color: var(--gold-light);
+  color: var(--ink);
+}
+
+/* ---------- Téléphone : textes plus lisibles, zones tactiles plus grandes ---------- */
+
+@media (max-width: 760px) {
+  body {
+    font-size: 15px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+
+  .announcement {
+    font-size: 10px;
+  }
+
+  .card__cat {
+    font-size: 11px;
+  }
+
+  .card__title {
+    font-size: 21px;
+  }
+
+  .card__price {
+    font-size: 14px;
+  }
+
+  .hero__text,
+  .story__text,
+  .contact__text,
+  .feature__text,
+  .section-head__text,
+  .craft__item p,
+  .prose--rich {
+    font-size: 16px;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  .site-footer__nav a {
+    display: inline-block;
+    padding: 4px 0;
+    font-size: 15px;
+  }
+
+  .site-footer__bottom {
+    font-size: 12px;
+  }
+
+  .woocommerce-breadcrumb {
+    font-size: 12px !important;
+  }
+
+  .form label,
+  .form .form__field > label {
+    font-size: 12px;
+  }
+
+  .form input[type="text"],
+  .form input[type="email"],
+  .form input[type="tel"],
+  .form input[type="date"],
+  .form select,
+  .form textarea {
+    font-size: 16px; /* 16 px minimum : évite le zoom automatique de l'iPhone */
+  }
+}
+
+/* Aucun glissement horizontal de la page, même si un élément dépasse (iPhone compris). */
+html,
+body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+@media (max-width: 760px) {
+  .announcement,
+  .header-cart__count,
+  .contact-block__list span,
+  .form label small,
+  .chip-choice small {
+    font-size: 11px;
   }
 }

@@ -18,13 +18,13 @@ function jolya_defaults() {
 		'story_title_2' => 'Une présence.',
 		'story_text'    => "Le caftan accompagne les moments qui comptent. JOLYA CAFTAN célèbre cette élégance à travers des créations raffinées, où le sens du détail rencontre une allure contemporaine, dans le respect d'un savoir-faire transmis de génération en génération.",
 		'contact_title' => 'Une occasion particulière ?',
-		'contact_text'  => 'Mariage, fiançailles, cérémonie : confiez-nous vos envies, nous vous guidons vers la pièce idéale ou la réalisons sur mesure.',
+		'contact_text'  => 'Mariage, fiançailles, cérémonie : confiez-nous vos envies, nous vous guidons vers la pièce idéale, à acheter ou à louer.',
 		'email'         => 'bonjour@jolyacaftan.fr',
 		'whatsapp'      => '',
 		'instagram'     => '',
-		'announcement'  => 'Livraison offerte en France · Confection sur mesure sur demande',
-		'product_sizes'    => "Le caftan se porte ample et se ceinture à la taille. Consultez le guide des tailles ; en cas d'hésitation, écrivez-nous. Longueur et manches peuvent être ajustées sur demande.",
-		'product_shipping' => "Expédition soignée avec numéro de suivi. Vous disposez de 14 jours après réception pour changer d'avis (hors créations sur mesure).",
+		'announcement'  => 'Caftans à la vente et à la location',
+		'product_sizes'    => "Le caftan se porte ample et se ceinture à la taille. Consultez le guide des tailles ; en cas d'hésitation, écrivez-nous.",
+		'product_shipping' => "Expédition soignée avec numéro de suivi. Vous disposez de 14 jours après réception pour changer d'avis.",
 		'product_care'     => "Nettoyage à sec recommandé. Repassage sur l'envers, à basse température, en évitant les broderies. Conserver suspendu, dans une housse.",
 	);
 }
@@ -42,15 +42,15 @@ add_action( 'customize_register', function ( $wp_customize ) {
 			'hero_text'         => array( 'Phrase sous le titre', 'textarea' ),
 			'announcement'      => array( 'Bandeau en haut du site (vide = masqué)', 'text' ),
 		) ),
-		'jolya_story'   => array( 'La maison', array(
+		'jolya_story'   => array( 'Accueil — section À propos', array(
 			'manifesto'     => array( "Phrase d'introduction", 'textarea' ),
-			'story_image'   => array( 'Photo de la maison', 'image' ),
+			'story_image'   => array( 'Photo de la section', 'image' ),
 			'story_title'   => array( 'Titre — ligne 1', 'text' ),
 			'story_title_2' => array( 'Titre — ligne 2 (italique)', 'text' ),
 			'story_text'    => array( 'Texte', 'textarea' ),
 		) ),
 		'jolya_product' => array( 'Fiche caftan — informations', array(
-			'product_sizes'    => array( 'Tailles et sur-mesure', 'textarea' ),
+			'product_sizes'    => array( 'Tailles', 'textarea' ),
 			'product_shipping' => array( 'Livraison et retours', 'textarea' ),
 			'product_care'     => array( 'Entretien', 'textarea' ),
 		) ),

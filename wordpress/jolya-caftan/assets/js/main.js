@@ -33,9 +33,16 @@
   var header = document.querySelector(".site-header");
   var lastY = window.scrollY;
 
+  // Téléphone + connecté à WordPress : la barre d'administration défile avec la page.
+  // L'en-tête la suit, puis se colle en haut de l'écran (sinon un vide apparaît au-dessus).
+  var adminBar = document.body.classList.contains("admin-bar");
+
   function onHeaderScroll() {
     if (!header) return;
     var y = window.scrollY;
+    if (adminBar) {
+      header.style.top = window.innerWidth <= 600 ? Math.max(0, 46 - y) + "px" : "";
+    }
     header.classList.toggle("is-scrolled", y > 40);
     var goingDown = y > lastY && y > 500;
     if (!root.classList.contains("menu-open")) {

@@ -1,7 +1,7 @@
 <?php
 /**
  * Formulaires du site :
- *  - [jolya_contact] ou [jolya_contact sujet="Sur mesure"] : demande de contact ;
+ *  - [jolya_contact] ou [jolya_contact sujet="Location"] : demande de contact ;
  *  - [jolya_location] : demande de location d'un caftan.
  *
  * Chaque demande est envoyée par e-mail (adresse réglée dans Personnaliser → Contact)
@@ -92,7 +92,7 @@ add_action( 'load-post.php', function () {
  * ------------------------------------------------------------- */
 
 function jolya_contact_subjects() {
-	return array( 'Un modèle de la collection', 'Location', 'Sur mesure', 'Ma commande', 'Autre demande' );
+	return array( 'Un modèle à la vente', 'Location', 'Ma commande', 'Autre demande' );
 }
 
 function jolya_event_types() {
@@ -331,7 +331,7 @@ add_shortcode( 'jolya_location', function () {
 			</div>
 			<p class="form__field">
 				<label for="jolya-message">Un message ? <small>(facultatif)</small></label>
-				<textarea id="jolya-message" name="message" rows="3" placeholder="Retouches, mesures, questions…"></textarea>
+				<textarea id="jolya-message" name="message" rows="3" placeholder="Questions, précisions…"></textarea>
 			</p>
 		</section>
 

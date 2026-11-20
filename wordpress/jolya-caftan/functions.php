@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.5.0' );
+define( 'JOLYA_VERSION', '1.6.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -82,16 +82,15 @@ function jolya_image_opt( $key, $fallback ) {
 function jolya_default_menu() {
 	$home = home_url( '/' );
 	$shop = function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ? wc_get_page_permalink( 'shop' ) : $home . '#collection';
+	// Vente et Location : deux boutons bien distincts.
 	$items = array(
-		'Collection' => $shop,
-		'Location'   => jolya_page_url( 'location', $home . '#contact' ),
-		'La maison'  => jolya_page_url( 'la-maison', $home . '#maison' ),
-		'Sur mesure' => jolya_page_url( 'sur-mesure', $home . '#savoir-faire' ),
-		'Contact'    => jolya_page_url( 'contact', $home . '#contact' ),
+		array( 'Vente', $shop, 'menu-item--pill' ),
+		array( 'Location', jolya_page_url( 'location', $home . '#contact' ), 'menu-item--pill' ),
+		array( 'Contact', jolya_page_url( 'contact', $home . '#contact' ), '' ),
 	);
 	echo '<ul class="menu">';
-	foreach ( $items as $label => $url ) {
-		printf( '<li><a href="%s">%s</a></li>', esc_url( $url ), esc_html( $label ) );
+	foreach ( $items as $item ) {
+		printf( '<li class="%s"><a href="%s">%s</a></li>', esc_attr( $item[2] ), esc_url( $item[1] ), esc_html( $item[0] ) );
 	}
 	echo '</ul>';
 }
