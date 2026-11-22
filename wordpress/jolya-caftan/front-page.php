@@ -14,7 +14,11 @@ $shop_url = jolya_shop_url();
 	<div class="hero__media" data-parallax="0.18">
 		<picture>
 			<source media="(max-width: 760px)" srcset="<?php echo esc_url( jolya_image_opt( 'hero_image_mobile', 'hero-dore-mobile.webp' ) ); ?>">
-			<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-dore.webp' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
+			<?php if ( absint( get_theme_mod( 'jolya_hero_image' ) ) ) : ?>
+				<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-dore.webp' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
+			<?php else : ?>
+				<img src="<?php echo esc_url( jolya_asset( 'hero-dore.webp' ) ); ?>" srcset="<?php echo esc_url( jolya_asset( 'hero-dore-1920.webp' ) ); ?> 1920w, <?php echo esc_url( jolya_asset( 'hero-dore.webp' ) ); ?> 3344w" sizes="100vw" width="3344" height="1882" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
+			<?php endif; ?>
 		</picture>
 	</div>
 	<div class="hero__veil"></div>
