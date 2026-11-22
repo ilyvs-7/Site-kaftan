@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.8.1' );
+define( 'JOLYA_VERSION', '1.9.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -162,7 +162,7 @@ add_action( 'wp_head', function () {
 		$description = jolya_opt( 'hero_text' );
 	}
 	if ( ! $image ) {
-		$image = jolya_image_opt( 'hero_image', 'hero-fuchsia.webp' );
+		$image = jolya_image_opt( 'hero_image', 'hero-dore.webp' );
 	}
 
 	$description = trim( preg_replace( '/\s+/', ' ', wp_strip_all_tags( $description ) ) );

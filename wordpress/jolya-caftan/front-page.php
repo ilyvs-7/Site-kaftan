@@ -13,8 +13,8 @@ $shop_url = jolya_shop_url();
 <section class="hero" id="accueil">
 	<div class="hero__media" data-parallax="0.18">
 		<picture>
-			<source media="(max-width: 760px)" srcset="<?php echo esc_url( jolya_image_opt( 'hero_image_mobile', 'fuchsia-face.webp' ) ); ?>">
-			<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-fuchsia.webp' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
+			<source media="(max-width: 760px)" srcset="<?php echo esc_url( jolya_image_opt( 'hero_image_mobile', 'hero-dore-mobile.webp' ) ); ?>">
+			<img src="<?php echo esc_url( jolya_image_opt( 'hero_image', 'hero-dore.webp' ) ); ?>" alt="Caftan brodé d'or présenté dans un décor de marbre baigné de lumière" fetchpriority="high">
 		</picture>
 	</div>
 	<div class="hero__veil"></div>

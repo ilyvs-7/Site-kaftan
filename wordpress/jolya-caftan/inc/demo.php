@@ -10,30 +10,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function jolya_demo_products() {
 	return array(
+		// Ordre d'affichage : les caftans sombres, puis les couleurs vives, puis les clairs.
 		array( 'name' => 'Caftan Nuit Royale', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'nuit-face.webp' ),
 			'short' => "Velours bleu nuit et broderies d'or.",
 			'desc'  => "Un velours bleu nuit profond, entièrement rehaussé de broderies dorées réalisées à la main. Ceinture ouvragée assortie. Une pièce de cérémonie au tombé majestueux." ),
-		array( 'name' => 'Caftan Majorelle', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'majorelle-face.webp' ),
-			'short' => 'Bleu Majorelle, motifs floraux dorés.',
-			'desc'  => "Inspiré des jardins de Marrakech, ce caftan bleu Majorelle se pare de motifs floraux et de perles dorées. Traîne légère et ceinture bijou." ),
-		array( 'name' => 'Caftan Lilas', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'lilas-face.webp', 'lilas-dos.webp' ),
-			'short' => 'Crêpe lilas, broderies ton sur ton.',
-			'desc'  => "Une silhouette épurée en crêpe lilas, soulignée de broderies ton sur ton et d'une ceinture en satin prune nouée au dos. L'élégance en toute délicatesse." ),
-		array( 'name' => 'Caftan Grenat', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'grenat-face.webp' ),
-			'short' => "Rouge grenat et arabesques d'or.",
-			'desc'  => "Un rouge grenat éclatant, couvert d'arabesques dorées brodées main. La pièce des grandes célébrations, pensée pour la mariée et ses invitées d'honneur." ),
 		array( 'name' => 'Caftan Émeraude', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'emeraude-face.webp', 'emeraude-dos.webp' ),
 			'short' => 'Vert émeraude, perlage noir scintillant.',
 			'desc'  => "Un vert émeraude intense, travaillé d'un perlage noir scintillant sur le devant, le dos et les manches. Ceinture dorée ajourée." ),
-		array( 'name' => 'Caftan Safran', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'safran-face.webp', 'safran-dos.webp' ),
-			'short' => 'Orange safran, broderies dorées et pierres.',
-			'desc'  => "La chaleur du safran, sublimée de broderies dorées en relief et de pierres vert profond. Un dos brodé spectaculaire." ),
+		array( 'name' => 'Caftan Majorelle', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'majorelle-face.webp' ),
+			'short' => 'Bleu Majorelle, motifs floraux dorés.',
+			'desc'  => "Inspiré des jardins de Marrakech, ce caftan bleu Majorelle se pare de motifs floraux et de perles dorées. Traîne légère et ceinture bijou." ),
 		array( 'name' => 'Caftan Jade', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'jade-face.webp' ),
 			'short' => 'Vert jade et broderies argentées.',
 			'desc'  => "Vert jade et fils d'argent : des broderies baroques, des manches frangées et une ceinture métallisée pour une allure résolument raffinée." ),
+		array( 'name' => 'Caftan Grenat', 'cat' => 'Cérémonie', 'price' => 360, 'images' => array( 'grenat-face.webp' ),
+			'short' => "Rouge grenat et arabesques d'or.",
+			'desc'  => "Un rouge grenat éclatant, couvert d'arabesques dorées brodées main. La pièce des grandes célébrations, pensée pour la mariée et ses invitées d'honneur." ),
 		array( 'name' => 'Caftan Fuchsia Impérial', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'fuchsia-face.webp', 'hero-fuchsia.webp' ),
 			'short' => 'Fuchsia profond, galons dorés.',
 			'desc'  => "La pièce emblématique de la maison : un fuchsia profond structuré de larges galons dorés aux motifs géométriques. Traîne et ceinture bijou." ),
+		array( 'name' => 'Caftan Safran', 'cat' => 'Signature', 'price' => 360, 'images' => array( 'safran-face.webp', 'safran-dos.webp' ),
+			'short' => 'Orange safran, broderies dorées et pierres.',
+			'desc'  => "La chaleur du safran, sublimée de broderies dorées en relief et de pierres vert profond. Un dos brodé spectaculaire." ),
+		array( 'name' => 'Caftan Lilas', 'cat' => 'Intemporel', 'price' => 360, 'images' => array( 'lilas-face.webp', 'lilas-dos.webp' ),
+			'short' => 'Crêpe lilas, broderies ton sur ton.',
+			'desc'  => "Une silhouette épurée en crêpe lilas, soulignée de broderies ton sur ton et d'une ceinture en satin prune nouée au dos. L'élégance en toute délicatesse." ),
 	);
 }
 
@@ -274,3 +275,38 @@ add_action( 'admin_post_jolya_dismiss_demo', function () {
 	wp_safe_redirect( admin_url() );
 	exit;
 } );
+
+/* ---------------------------------------------------------------
+ * Ordre de la collection : sombres ensemble, puis vifs, puis clairs.
+ * Appliqué une fois aux caftans importés dont l'ordre n'a pas été modifié.
+ * ------------------------------------------------------------- */
+function jolya_reorder_collection() {
+	if ( get_option( 'jolya_order_done' ) || ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+	update_option( 'jolya_order_done', 1 );
+
+	// Ordre à l'import d'origine (versions précédentes du thème).
+	$old = array( 'Caftan Nuit Royale', 'Caftan Majorelle', 'Caftan Lilas', 'Caftan Grenat', 'Caftan Émeraude', 'Caftan Safran', 'Caftan Jade', 'Caftan Fuchsia Impérial' );
+	$new = wp_list_pluck( jolya_demo_products(), 'name' );
+
+	foreach ( $new as $position => $name ) {
+		$found = get_posts( array(
+			'post_type'   => 'product',
+			'post_status' => 'any',
+			'title'       => $name,
+			'numberposts' => 1,
+		) );
+		if ( ! $found ) {
+			continue;
+		}
+		$post  = $found[0];
+		$index = array_search( $name, $old, true );
+		// Ordre modifié à la main dans WordPress : on le respecte.
+		if ( false === $index || (int) $post->menu_order !== (int) $index ) {
+			continue;
+		}
+		wp_update_post( array( 'ID' => $post->ID, 'menu_order' => $position ) );
+	}
+}
+add_action( 'admin_init', 'jolya_reorder_collection' );
