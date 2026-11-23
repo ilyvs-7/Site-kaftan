@@ -41,6 +41,8 @@ while ( have_posts() ) :
 			<?php endif; ?>
 		</header>
 
+		<?php echo jolya_ornament( 'ornament--page' ); // phpcs:ignore ?>
+
 		<div class="prose<?php echo $jolya_is_wide ? ' prose--wide' : ''; ?><?php echo $jolya_is_shop ? '' : ' prose--rich'; ?>">
 			<?php the_content(); ?>
 		</div>

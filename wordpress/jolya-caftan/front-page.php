@@ -82,7 +82,9 @@ $shop_url = jolya_shop_url();
 	<p class="manifesto__text" data-words><?php echo esc_html( jolya_opt( 'manifesto' ) ); ?></p>
 </section>
 
-<!-- COLLECTION -->
+<?php echo jolya_ornament( 'ornament--section' ); // phpcs:ignore ?>
+
+<!-- COLLECTION (mise en page lookbook) -->
 <section class="collection" id="collection">
 	<header class="section-head">
 		<div>
@@ -92,10 +94,18 @@ $shop_url = jolya_shop_url();
 		<p class="section-head__text" data-reveal>Des créations raffinées, pensées pour accompagner les moments qui comptent.</p>
 	</header>
 
-	<div class="cards">
+	<div class="cards cards--lookbook">
 		<?php
 		foreach ( $cards as $i => $card ) {
 			get_template_part( 'template-parts/product-card', null, array( 'card' => $card, 'index' => $i ) );
+			if ( 3 === $i && count( $cards ) > 5 ) :
+				?>
+				<blockquote class="lookbook-quote" data-reveal>
+					<?php echo jolya_ornament(); // phpcs:ignore ?>
+					<p><?php echo esc_html( jolya_opt( 'lookbook_quote' ) ); ?></p>
+				</blockquote>
+				<?php
+			endif;
 		}
 		?>
 	</div>
@@ -107,7 +117,7 @@ $shop_url = jolya_shop_url();
 
 <!-- PIÈCE SIGNATURE -->
 <section class="feature">
-	<div class="feature__media" data-reveal="curtain">
+	<div class="feature__media feature__media--arch" data-reveal="curtain">
 		<img src="<?php echo esc_url( $featured['image'] ); ?>" alt="<?php echo esc_attr( $featured['name'] ); ?>" loading="lazy" data-parallax="0.08">
 	</div>
 	<div class="feature__content">
@@ -123,6 +133,8 @@ $shop_url = jolya_shop_url();
 		</div>
 	</div>
 </section>
+
+<?php echo jolya_ornament( 'ornament--section' ); // phpcs:ignore ?>
 
 <!-- SAVOIR-FAIRE -->
 <section class="craft" id="savoir-faire">
@@ -154,6 +166,8 @@ $shop_url = jolya_shop_url();
 		</article>
 	</div>
 </section>
+
+<?php echo jolya_ornament( 'ornament--section' ); // phpcs:ignore ?>
 
 <!-- À PROPOS -->
 <section class="story" id="maison">

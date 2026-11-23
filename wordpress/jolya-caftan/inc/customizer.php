@@ -17,6 +17,7 @@ function jolya_defaults() {
 		'offer_sale_text'  => 'Choisissez la pièce qui vous ressemble et gardez-la pour toutes vos grandes occasions.',
 		'offer_rent_title' => 'Louer',
 		'offer_rent_text'  => "Portez le caftan de vos rêves le temps d'un mariage ou d'une soirée : choisissez le modèle et la date.",
+		'lookbook_quote'   => 'Chaque pièce raconte une histoire. La vôtre commence ici.',
 		'manifesto'     => "Chaque caftan JOLYA est une pièce rare : des étoffes nobles, des broderies d'or façonnées à la main et une allure pensée pour traverser le temps.",
 		'story_title'   => "Bien plus qu'une tenue.",
 		'story_title_2' => 'Une présence.',
@@ -56,6 +57,7 @@ add_action( 'customize_register', function ( $wp_customize ) {
 		) ),
 		'jolya_story'   => array( 'Accueil — section À propos', array(
 			'manifesto'     => array( "Phrase d'introduction", 'textarea' ),
+			'lookbook_quote' => array( 'Citation au milieu de la collection (accueil)', 'text' ),
 			'story_image'   => array( 'Photo de la section', 'image' ),
 			'story_title'   => array( 'Titre — ligne 1', 'text' ),
 			'story_title_2' => array( 'Titre — ligne 2 (italique)', 'text' ),

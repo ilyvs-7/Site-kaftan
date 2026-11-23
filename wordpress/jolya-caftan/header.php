@@ -13,6 +13,7 @@
 <?php if ( is_front_page() ) : ?>
 <div class="preloader" aria-hidden="true">
 	<div class="preloader__inner">
+		<?php echo jolya_monogram( 'preloader__mark' ); // phpcs:ignore ?>
 		<span class="preloader__brand">JOLYA</span>
 		<span class="preloader__line"></span>
 		<span class="preloader__sub">Maison de caftans</span>
@@ -27,6 +28,8 @@
 	<span class="ambient__halo ambient__halo--3"></span>
 	<canvas class="ambient__dust"></canvas>
 </div>
+
+<div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 
 <header class="site-header<?php echo is_front_page() ? ' site-header--over' : ''; ?>">
 	<?php if ( jolya_opt( 'announcement' ) ) : ?>

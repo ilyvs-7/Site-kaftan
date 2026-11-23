@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '1.9.2' );
+define( 'JOLYA_VERSION', '2.0.0' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -200,3 +200,24 @@ add_action( 'wp_footer', function () {
 		esc_attr( $text )
 	);
 } );
+
+/* ---------------------------------------------------------------
+ * Signature visuelle : monogramme et filet orné.
+ * Le monogramme : un « J » au cœur d'une étoile marocaine à huit branches (khatam).
+ * ------------------------------------------------------------- */
+
+function jolya_monogram( $class = '' ) {
+	return '<svg class="monogram ' . esc_attr( $class ) . '" viewBox="0 0 100 100" aria-hidden="true" focusable="false">'
+		. '<circle class="monogram__ring" cx="50" cy="50" r="47" pathLength="1"/>'
+		. '<rect class="monogram__star" x="21" y="21" width="58" height="58" pathLength="1"/>'
+		. '<rect class="monogram__star" x="21" y="21" width="58" height="58" transform="rotate(45 50 50)" pathLength="1"/>'
+		. '<text class="monogram__letter" x="50" y="63.5" text-anchor="middle">J</text>'
+		. '</svg>';
+}
+
+/** Filet doré avec une petite étoile au centre (séparateur de sections). */
+function jolya_ornament( $class = '' ) {
+	return '<div class="ornament ' . esc_attr( $class ) . '" aria-hidden="true"><span class="ornament__line"></span>'
+		. '<svg class="ornament__star" viewBox="0 0 20 20"><rect x="5" y="5" width="10" height="10"/><rect x="5" y="5" width="10" height="10" transform="rotate(45 10 10)"/></svg>'
+		. '<span class="ornament__line"></span></div>';
+}

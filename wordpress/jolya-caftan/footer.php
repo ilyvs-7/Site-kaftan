@@ -3,6 +3,7 @@
 <footer class="site-footer">
 	<div class="site-footer__top">
 		<div class="site-footer__intro">
+			<?php echo jolya_monogram( 'site-footer__mark' ); // phpcs:ignore ?>
 			<p class="eyebrow">JOLYA CAFTAN</p>
 			<p class="site-footer__tagline">L'élégance<br><em>des instants précieux.</em></p>
 		</div>

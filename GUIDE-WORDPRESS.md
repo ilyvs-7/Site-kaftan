@@ -90,8 +90,17 @@ et texte de chaque encadré.
 Dès qu'un numéro est indiqué dans *Personnaliser → Contact → Numéro WhatsApp*, un bouton vert
 apparaît en bas à droite de toutes les pages. Laisser le champ vide pour le masquer.
 
+### Citation de la collection (accueil)
+Au milieu des caftans de l'accueil, une phrase en italique :
+*Personnaliser → JOLYA — Contenu du site → La maison → Citation au milieu de la collection*.
+
+### Monogramme JOLYA
+Le monogramme (un « J » dans une étoile marocaine) est fourni dans le thème :
+`wp-content/themes/jolya-caftan/assets/images/monogramme.svg`. Il peut servir pour les
+étiquettes, les cartes de visite ou la photo de profil Instagram.
+
 ### Icône de l'onglet
-Par défaut, un « J » doré. Pour mettre le logo : *Personnaliser → Identité du site → Icône du site*.
+Par défaut, le monogramme JOLYA. Pour mettre le logo : *Personnaliser → Identité du site → Icône du site*.
 
 ### Modifier une page (À propos, Location, FAQ…)
 **Pages → Toutes les pages** → cliquer sur la page → modifier le texte directement → **Mettre à jour**.

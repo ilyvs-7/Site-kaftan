@@ -166,6 +166,34 @@
     });
   }
 
+  /* ---------- Barre de progression du défilement ---------- */
+
+  var progress = document.querySelector("[data-scroll-progress]");
+
+  function updateProgress() {
+    if (!progress) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    progress.style.transform = "scaleX(" + ratio.toFixed(4) + ")";
+  }
+
+  /* ---------- Boutons aimantés (souris uniquement) ---------- */
+
+  if (!reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll(".btn, .site-nav .menu-item--pill a").forEach(function (el) {
+      el.classList.add("is-magnetic");
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        var y = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        el.style.transform = "translate(" + (x * 6).toFixed(1) + "px," + (y * 5).toFixed(1) + "px)";
+      });
+      el.addEventListener("pointerleave", function () {
+        el.style.transform = "";
+      });
+    });
+  }
+
   /* ---------- Boucle de défilement ---------- */
 
   var ticking = false;
@@ -175,6 +203,7 @@
     ticking = true;
     requestAnimationFrame(function () {
       onHeaderScroll();
+      updateProgress();
       updateWords();
       updateParallax();
       ticking = false;
