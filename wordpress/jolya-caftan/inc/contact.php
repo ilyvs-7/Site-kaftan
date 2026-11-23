@@ -286,10 +286,6 @@ add_shortcode( 'jolya_location', function () {
 					</label>
 				<?php endforeach; ?>
 			</div>
-			<label class="rent-advice">
-				<input type="radio" name="caftan" value="<?php echo esc_attr( $advice ); ?>" <?php checked( $wanted, $advice ); ?>>
-				<span>Je ne sais pas encore : <strong>conseillez-moi</strong></span>
-			</label>
 		</section>
 
 		<section class="rent__step">

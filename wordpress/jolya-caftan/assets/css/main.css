@@ -4329,3 +4329,12 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* Téléphone : pas de bouton WhatsApp flottant sur les pages à formulaire
+   (il pourrait cacher un champ ; le contact WhatsApp y est déjà proposé). */
+@media (max-width: 760px) {
+  body:has(.rent) .wa-float,
+  body:has(.contact-block) .wa-float {
+    display: none;
+  }
+}
