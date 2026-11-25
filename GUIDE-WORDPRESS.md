@@ -90,10 +90,6 @@ et texte de chaque encadré.
 Dès qu'un numéro est indiqué dans *Personnaliser → Contact → Numéro WhatsApp*, un bouton vert
 apparaît en bas à droite de toutes les pages. Laisser le champ vide pour le masquer.
 
-### Citation de la collection (accueil)
-Au milieu des caftans de l'accueil, une phrase en italique :
-*Personnaliser → JOLYA — Contenu du site → La maison → Citation au milieu de la collection*.
-
 ### Monogramme JOLYA
 Le monogramme (un « J » sous une arche marocaine) est fourni dans le thème :
 `wp-content/themes/jolya-caftan/assets/images/monogramme.svg`. Il peut servir pour les

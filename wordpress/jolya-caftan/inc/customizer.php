@@ -57,7 +57,6 @@ add_action( 'customize_register', function ( $wp_customize ) {
 		) ),
 		'jolya_story'   => array( 'Accueil — section À propos', array(
 			'manifesto'     => array( "Phrase d'introduction", 'textarea' ),
-			'lookbook_quote' => array( 'Citation au milieu de la collection (accueil)', 'text' ),
 			'story_image'   => array( 'Photo de la section', 'image' ),
 			'story_title'   => array( 'Titre — ligne 1', 'text' ),
 			'story_title_2' => array( 'Titre — ligne 2 (italique)', 'text' ),

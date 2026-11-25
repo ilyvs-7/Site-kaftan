@@ -84,7 +84,7 @@ $shop_url = jolya_shop_url();
 
 <?php echo jolya_ornament( 'ornament--section' ); // phpcs:ignore ?>
 
-<!-- COLLECTION (mise en page lookbook) -->
+<!-- COLLECTION -->
 <section class="collection" id="collection">
 	<header class="section-head">
 		<div>
@@ -94,18 +94,10 @@ $shop_url = jolya_shop_url();
 		<p class="section-head__text" data-reveal>Des créations raffinées, pensées pour accompagner les moments qui comptent.</p>
 	</header>
 
-	<div class="cards cards--lookbook">
+	<div class="cards">
 		<?php
 		foreach ( $cards as $i => $card ) {
 			get_template_part( 'template-parts/product-card', null, array( 'card' => $card, 'index' => $i ) );
-			if ( 3 === $i && count( $cards ) > 5 ) :
-				?>
-				<blockquote class="lookbook-quote" data-reveal>
-					<?php echo jolya_ornament(); // phpcs:ignore ?>
-					<p><?php echo esc_html( jolya_opt( 'lookbook_quote' ) ); ?></p>
-				</blockquote>
-				<?php
-			endif;
 		}
 		?>
 	</div>
