@@ -24,7 +24,7 @@ function jolya_defaults() {
 		'story_text'    => "Le caftan accompagne les moments qui comptent. JOLYA CAFTAN célèbre cette élégance à travers des créations raffinées, où le sens du détail rencontre une allure contemporaine, dans le respect d'un savoir-faire transmis de génération en génération.",
 		'contact_title' => 'Une occasion particulière ?',
 		'contact_text'  => 'Mariage, fiançailles, cérémonie : confiez-nous vos envies, nous vous guidons vers la pièce idéale, à acheter ou à louer.',
-		'email'         => 'bonjour@jolyacaftan.fr',
+		'email'         => 'jolyacaftanofficiel@gmail.com',
 		'whatsapp'      => '',
 		'instagram'     => '',
 		'announcement'  => 'Caftans à la vente et à la location',
