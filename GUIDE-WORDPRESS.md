@@ -95,7 +95,7 @@ Au milieu des caftans de l'accueil, une phrase en italique :
 *Personnaliser → JOLYA — Contenu du site → La maison → Citation au milieu de la collection*.
 
 ### Monogramme JOLYA
-Le monogramme (un « J » dans une étoile marocaine) est fourni dans le thème :
+Le monogramme (un « J » sous une arche marocaine) est fourni dans le thème :
 `wp-content/themes/jolya-caftan/assets/images/monogramme.svg`. Il peut servir pour les
 étiquettes, les cartes de visite ou la photo de profil Instagram.
 

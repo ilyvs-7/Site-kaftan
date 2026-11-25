@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JOLYA_VERSION', '2.0.1' );
+define( 'JOLYA_VERSION', '2.0.2' );
 
 require get_template_directory() . '/inc/demo.php';
 require get_template_directory() . '/inc/customizer.php';
@@ -203,21 +203,21 @@ add_action( 'wp_footer', function () {
 
 /* ---------------------------------------------------------------
  * Signature visuelle : monogramme et filet orné.
- * Le monogramme : un « J » au cœur d'une étoile marocaine à huit branches (khatam).
+ * Le monogramme : un « J » sous une arche marocaine.
  * ------------------------------------------------------------- */
 
 function jolya_monogram( $class = '' ) {
 	return '<svg class="monogram ' . esc_attr( $class ) . '" viewBox="0 0 100 100" aria-hidden="true" focusable="false">'
-		. '<circle class="monogram__ring" cx="50" cy="50" r="47" pathLength="1"/>'
-		. '<rect class="monogram__star" x="21" y="21" width="58" height="58" pathLength="1"/>'
-		. '<rect class="monogram__star" x="21" y="21" width="58" height="58" transform="rotate(45 50 50)" pathLength="1"/>'
-		. '<text class="monogram__letter" x="50" y="63.5" text-anchor="middle">J</text>'
+		. '<path class="monogram__arch" d="M24 92V50C18 36 26 16 50 6C74 16 82 36 76 50V92" pathLength="1"/>'
+		. '<path class="monogram__arch monogram__arch--inner" d="M31 92V53C27 42 33 26 50 18C67 26 73 42 69 53V92" pathLength="1"/>'
+		. '<path class="monogram__base" d="M18 92H82" pathLength="1"/>'
+		. '<text class="monogram__letter" x="50" y="73" text-anchor="middle">J</text>'
 		. '</svg>';
 }
 
 /** Filet doré avec une petite étoile au centre (séparateur de sections). */
 function jolya_ornament( $class = '' ) {
 	return '<div class="ornament ' . esc_attr( $class ) . '" aria-hidden="true"><span class="ornament__line"></span>'
-		. '<svg class="ornament__star" viewBox="0 0 20 20"><rect x="5" y="5" width="10" height="10"/><rect x="5" y="5" width="10" height="10" transform="rotate(45 10 10)"/></svg>'
+		. '<svg class="ornament__star" viewBox="0 0 20 20"><rect x="6" y="6" width="8" height="8" transform="rotate(45 10 10)"/></svg>'
 		. '<span class="ornament__line"></span></div>';
 }
