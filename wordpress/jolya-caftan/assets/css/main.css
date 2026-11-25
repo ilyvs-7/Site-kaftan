@@ -4776,3 +4776,9 @@ p {
 .ornament:hover .ornament__star {
   transform: rotate(90deg);
 }
+
+/* Le « J » du monogramme est un tracé : remplissage plein, sans contour. */
+.monogram path.monogram__letter {
+  fill: currentColor;
+  stroke: none;
+}
